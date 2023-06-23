@@ -34,3 +34,7 @@
     transform: rotate(360deg);
   }
 }
+
+.Card-image {
+  width: 18rem;
+}

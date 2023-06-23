@@ -1,15 +1,30 @@
 import React from "react";
+import Title from "../component/Title";
+import Card from "../component/Card";
 
 function Home() {
   return (
     <>
-      <div className="card m-3">
-        <img src="" className="card-img-top" alt="" />
-      </div>
-      <div className="card-body p-3">
-        <h5 className="card-title">title</h5>
-        <p className="card-text">description </p>
-      </div>
+      <>
+        <Title
+          mainText={"Cards Page"}
+          subText={"Here you can find business cards from all categories"}
+        />
+        <div className="d-flex">
+          <Card
+            title="title 1"
+            image="https://cdn.pixabay.com/photo/2015/08/01/23/28/manicure-870857_1280.jpg"
+          />
+          <Card
+            title="title 2"
+            image="https://cdn.pixabay.com/photo/2015/08/01/23/28/manicure-870857_1280.jpg"
+          />
+          <Card
+            title="title 3"
+            image="https://cdn.pixabay.com/photo/2015/08/01/23/28/manicure-870857_1280.jpg"
+          />
+        </div>
+      </>
     </>
   );
 }
