@@ -4,9 +4,9 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-primary">
       <div className="container-fluid d-flex align-items-center">
-        <a className="navbar-brand" href="#">
+        <NavLink to={"/"} className="navbar-brand" >
           BCard
-        </a>
+        </NavLink>
         <button
           className="navbar-toggler"
           type="button"
@@ -21,7 +21,7 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/" className="nav-link active" aria-current="page">
+              <NavLink to="/about" className="nav-link active" aria-current="page">
                 ABOUT
               </NavLink>
             </li>
