@@ -4,7 +4,7 @@ function Header() {
   return (
     <nav className="navbar navbar-expand-lg bg-primary color-white">
       <div className="container-fluid">
-        <a className="navbar-brand" href="#">
+        <a className="navbar-brand " href="#">
           BCard
         </a>
         <button
