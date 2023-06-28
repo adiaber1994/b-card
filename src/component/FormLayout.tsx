@@ -1,19 +1,15 @@
 import { Children, ReactNode } from "react";
 
 interface Props {
-    children: ReactNode
+  children: ReactNode;
 }
 
-function FormLayout({children}: Props) {
-    return ( 
-        <div className="m-4 d-flex jstify-content-center">
-            <div className="col-sm-12 col-md-6">
-
-                {children}
-
-            </div>
-        </div>
-     );
+function FormLayout({ children }: Props) {
+  return (
+    <>
+      <div className="row g-3 justify-content-center mb-2">{children}</div>
+    </>
+  );
 }
 
 export default FormLayout;
