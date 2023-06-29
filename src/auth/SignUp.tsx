@@ -7,27 +7,23 @@ function Signup() {
   // const [name, setName] = useSate("");
   // const [name, setName] = useSate("");
 
+  //   function validate(): boolean {
+  //     if (! ||< 2) {
+  //         toast.error('fiers name is required')
+  //         return false
+  //     }
+  //     if (!email) { // also check that email is required with regex
+  //         toast.error('email is required.')
+  //         return false
+  //     }
 
-  function validate(): boolean {
-    if (! ||< 2) {
-        toast.error('fiers name is required')
-        return false
-    }
-    if (!email) { // also check that email is required with regex
-        toast.error('email is required.')
-        return false
-    }
+  //     if (!password || password.length < 6) {
+  //         toast.error('Password must contain at least 6 characters.')
+  //         return false
+  //     }
 
-    if (!password || password.length < 6) {
-        toast.error('Password must contain at least 6 characters.')
-        return false
-    }
-
-    return true
-}
-
-
-}
+  //     return true
+  // }
 
   return (
     <>
@@ -41,7 +37,7 @@ function Signup() {
               type="text"
               className="form-control text-center"
               placeholder="First Name"
-              value={name}
+              // value={name}
               // onChange={(e) => setName(e.target.valu)}
             />
           </div>
