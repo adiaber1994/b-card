@@ -1,11 +1,19 @@
 import { toast } from "react-toastify";
 import FormLayout from "../component/FormLayout";
 import Title from "../component/Title";
+import { useState } from "react";
 
 function Signup() {
+  const [firstName, setFirstName] = useState("");
   // const [name, setName] = useSate("");
   // const [name, setName] = useSate("");
   // const [name, setName] = useSate("");
+
+  function validate() {
+    if (!firstName) {
+      console.log("firstname is reqired");
+    }
+  }
 
   //   function validate(): boolean {
   //     if (! ||< 2) {
@@ -34,11 +42,10 @@ function Signup() {
         <FormLayout>
           <div className="col-sm-2">
             <input
-              type="text"
               className="form-control text-center"
               placeholder="First Name"
-              // value={name}
-              // onChange={(e) => setName(e.target.valu)}
+              value={firstName}
+              onChange={(e) => setFirstName(e.target.value)}
             />
           </div>
           <div className="col-sm-2">
@@ -172,7 +179,7 @@ function Signup() {
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="text-center">
+          <div className="text-center gap-2">
             <button className="btn btn-outline-danger col-2">CANCEL</button>
             <button className="btn btn-outline-primary col-2">
               <i className="bi bi-arrow-repeat"></i>

@@ -1,10 +1,21 @@
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
+import { data } from "../pages/home/Home";
+import { CardProps } from "./Card";
+import Home from "../pages/home/Home";
 
 function Header() {
+  const [search, setSearch] = useState("");
+
+  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setSearch(value);
+  }
+
   return (
     <nav className="navbar navbar-expand-lg bg-primary">
       <div className="container-fluid d-flex align-items-center">
-        <NavLink to={"/"} className="navbar-brand" >
+        <NavLink to={"/"} className="navbar-brand">
           BCard
         </NavLink>
         <button
@@ -21,7 +32,11 @@ function Header() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <NavLink to="/about" className="nav-link active" aria-current="page">
+              <NavLink
+                to="/about"
+                className="nav-link active"
+                aria-current="page"
+              >
                 ABOUT
               </NavLink>
             </li>
@@ -49,7 +64,8 @@ function Header() {
               className="form-control"
               type="search"
               placeholder="Search"
-              aria-label="Search"
+              value={search}
+              onChange={handleSearch}
             />
           </form>
           <li className="nav-item">
@@ -69,3 +85,9 @@ function Header() {
 }
 
 export default Header;
+function setSearch(value: string) {
+  throw new Error("Function not implemented.");
+}
+function setCards(filtered: CardProps[]) {
+  throw new Error("Function not implemented.");
+}
