@@ -13,7 +13,7 @@ function Header() {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg bg-primary">
+    <nav className="navbar navbar-expand-lg ">
       <div className="container-fluid d-flex align-items-center">
         <NavLink to={"/"} className="navbar-brand">
           BCard
@@ -46,9 +46,9 @@ function Header() {
               </a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <NavLink to="/my cards" className="nav-link">
                 MY CARDS
-              </a>
+              </NavLink>
             </li>
             <li className="nav-item">
               <a className="nav-link" href="#">

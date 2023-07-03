@@ -1,4 +1,4 @@
 module.exports = {
-    db_conn: 'mongodb://localhost:27017/funVacation',
-    jwt_token: 'myPrivateKey',
-}
+  db_conn: "mongodb://localhost:27017/bcard",
+  jwt_token: "myPrivateKey",
+};
