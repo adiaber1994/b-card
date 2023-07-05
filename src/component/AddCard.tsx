@@ -1,7 +1,48 @@
+import { useState } from "react";
 import FormLayout from "./FormLayout";
 import Title from "./Title";
 
-function AddCard() {
+interface Props {
+  onAdd: Function;
+}
+
+function AddCard({ onAdd }: Props) {
+  const [title, setTitle] = useState("");
+  const [subtitle, setSubtitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [phone, setPhone] = useState("");
+  const [email, setEmail] = useState("");
+  const [web, setWeb] = useState("");
+  const [image, setImage] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [city, setCity] = useState("");
+  const [street, setStreet] = useState("");
+  const [housenumber, setHousenumber] = useState("");
+  const [zip, setZip] = useState("");
+  const [error, setError] = useState("");
+
+  function validate(): boolean {
+    if (!title) {
+      setError("title is required");
+      return false;
+    }
+
+    setError("");
+    return true;
+  }
+
+  function handleClick() {
+    if (!validate()) {
+      return;
+    }
+    onAdd({
+      title,
+      subtitle,
+      description,
+    });
+  }
   return (
     <>
       <div className="text-center mb-5">
@@ -10,14 +51,20 @@ function AddCard() {
       <form className="">
         <FormLayout>
           <div className="col-sm-2">
-            <input className="form-control text-center" placeholder="Title*" />
+            <input
+              className="form-control text-center"
+              placeholder="Title*"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
           </div>
           <div className="col-sm-2">
             <input
               type="text"
               className="form-control text-center"
               placeholder="Subtitle"
-              aria-label=" middele name"
+              value={subtitle}
+              onChange={(e) => setSubtitle(e.target.value)}
             />
           </div>
         </FormLayout>
@@ -28,7 +75,8 @@ function AddCard() {
               type="text"
               className="form-control text-center"
               placeholder="Description*"
-              aria-label="last name"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="col-sm-2">
@@ -36,18 +84,19 @@ function AddCard() {
               type="number"
               className="form-control text-center"
               placeholder="Phone*"
-              aria-label="Phone"
+              value={phone}
+              onChange={(e) => setPhone(e.target.value)}
             />
           </div>
         </FormLayout>
-
-        <div className="row g-2 justify-content-center mb-5">
+        <FormLayout>
           <div className="col-sm-2">
             <input
-              type="email"
+              type="text"
               className="form-control text-center"
               placeholder="Email*"
-              aria-label="email"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="col-sm-2">
@@ -55,18 +104,15 @@ function AddCard() {
               type="text"
               className="form-control text-center"
               placeholder="Web"
-              aria-label="password"
             />
           </div>
-        </div>
-
+        </FormLayout>
         <FormLayout>
           <div className="col-sm-2">
             <input
               type="text"
               className="form-control text-center"
               placeholder="Image url"
-              aria-label="image"
             />
           </div>
           <div className="col-sm-2">
@@ -74,7 +120,7 @@ function AddCard() {
               type="text"
               className="form-control text-center"
               placeholder="Image alt"
-              aria-label="image"
+              aria-label="Phone"
             />
           </div>
         </FormLayout>
@@ -84,7 +130,6 @@ function AddCard() {
               type="text"
               className="form-control text-center"
               placeholder="State"
-              aria-label="state"
             />
           </div>
           <div className="col-sm-2">
@@ -92,7 +137,6 @@ function AddCard() {
               type="text"
               className="form-control text-center"
               placeholder="Country"
-              aria-label="country"
             />
           </div>
         </FormLayout>
@@ -101,26 +145,23 @@ function AddCard() {
             <input
               type="text"
               className="form-control text-center"
-              placeholder="City"
-              aria-label="city"
+              placeholder="City*"
             />
           </div>
-          <div className="col-sm-2">
-            <input
-              type="text"
-              className="form-control text-center"
-              placeholder="Street"
-              aria-label="street"
-            />
-          </div>
-        </FormLayout>
-        <FormLayout>
           <div className="col-sm-2">
             <input
               type="number"
               className="form-control text-center"
-              placeholder="House number"
-              aria-label="house"
+              placeholder="Street*"
+            />
+          </div>
+        </FormLayout>
+        <FormLayout>
+          <div className="col-sm-2">
+            <input
+              type="text"
+              className="form-control text-center"
+              placeholder="Housenumber*"
             />
           </div>
           <div className="col-sm-2">
@@ -128,18 +169,7 @@ function AddCard() {
               type="number"
               className="form-control text-center"
               placeholder="Zip"
-              aria-label="zip"
             />
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="form-check col-sm-4 mb-5">
-            <input
-              className="form-check-input"
-              type="checkbox"
-              id="gridCheck"
-            />
-            <label className="form-check-label">Signup as business</label>
           </div>
         </FormLayout>
         <FormLayout>
@@ -151,7 +181,9 @@ function AddCard() {
           </div>
         </FormLayout>
         <div className="text-center">
-          <button className="btn btn btn-secondary col-4">SUBMIT</button>
+          <button className="btn btn btn-secondary col-4" onClick={handleClick}>
+            SUBMIT
+          </button>
         </div>
       </form>
     </>

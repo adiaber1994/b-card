@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import AddCard from "../component/AddCard";
 import Card, { CardProps } from "../component/Card";
 import Title from "../component/Title";
-import { getCards } from "../services/ApiService";
+import { deleteCard, getCards } from "../services/ApiService";
+import { toast } from "react-toastify";
 
 function MyCards() {
-  const [card, setCards] = useState<Array<CardProps>>([]);
+  const [cards, setCards] = useState<Array<CardProps>>([]);
 
   useEffect(() => {
     getCards().then((json) => {
@@ -13,20 +14,34 @@ function MyCards() {
     });
   }, []);
 
+  // function onAdd(card: CardProps) {
+  //   AddCard(card).then((json) => {
+  //     setCards([...cards, json]);
+  //     toast.success('Card has been added successfully');
+  //   });
+  // }
+
+  async function onDelete(_id: string) {
+    const res = await deleteCard(_id);
+    const updated = [...cards].filter((card) => card._id !== _id);
+
+    setCards(updated);
+  }
+
   return (
     <>
       <Title mainText="My Cards" subText="All my cards" />
 
-      <Card
+      {/* <Card
         title={""}
         image={""}
         text={""}
         phone={""}
         address={""}
         cardNumber={0}
-      />
+      /> */}
 
-      <AddCard />
+      {/* <AddCard onAdd={onAdd} /> */}
     </>
   );
 }
