@@ -75,6 +75,7 @@ function Home() {
               phone={card.phone}
               address={card.address}
               cardNumber={card.cardNumber}
+              _id={""}
             />
           </div>
         ))}
