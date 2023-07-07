@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { data } from "../pages/home/Home";
 import { CardProps } from "./Card";
 import Home from "../pages/home/Home";
+import Logout from "../auth/Logout";
 
 function Header() {
   const [search, setSearch] = useState("");
@@ -77,6 +78,9 @@ function Header() {
             <NavLink to="/login" className="nav-link">
               Login
             </NavLink>
+          </li>
+          <li className="nav-item">
+            <Logout />
           </li>
         </ul>
       </div>
