@@ -3,6 +3,7 @@ import FormLayout from "../component/FormLayout";
 import Title from "../component/Title";
 import { useState } from "react";
 import { signup } from "../services/ApiService";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
   _id?: string;
@@ -20,7 +21,8 @@ export interface User {
   street: string;
   houseNumber: number;
   zip: number;
-  checkBox: Boolean;
+  biusiness: Boolean;
+  token: string;
 }
 
 function Signup() {
@@ -39,6 +41,7 @@ function Signup() {
   const [houseNumber, setHouseNumber] = useState("");
   const [zip, setZip] = useState("");
   const [checkBox, setCheckbox] = useState("");
+  const navigate = useNavigate();
 
   function validate(): boolean {
     if (!firstName || firstName.length < 2) {
@@ -80,9 +83,10 @@ function Signup() {
       state: "",
       houseNumber: 0,
       zip: 0,
-      checkBox: Boolean(),
+      biusiness: Boolean(),
+      token: "",
     }).then((user) => {
-      console.log(user);
+      navigate("/login");
     });
   }
 

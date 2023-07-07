@@ -1,10 +1,13 @@
 import { useState } from "react";
 import Title from "../component/Title";
 import { login, signup } from "../services/ApiService";
+import { useNavigate } from "react-router-dom";
+import { setToken } from "./TokenManager";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   function validate(): boolean {
     if (!email) {
@@ -37,9 +40,11 @@ function Login() {
       street: "",
       houseNumber: 0,
       zip: 0,
-      checkBox: Boolean(),
+      biusiness: Boolean(),
+      token: "",
     }).then((user) => {
-      console.log(user);
+      setToken(user.token);
+      navigate("/home");
     });
   }
 
