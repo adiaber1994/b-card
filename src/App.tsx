@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Signup from "./auth/SignUp";
 import MyCards from "./pages/MyCards";
 import { ToastContainer } from "react-toastify";
+import Login from "./auth/login";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="my cards" element={<MyCards />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="Login" element={<Login />} />
       </Routes>
     </>
   );

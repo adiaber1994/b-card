@@ -1,3 +1,4 @@
+const { number } = require("joi");
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
@@ -5,27 +6,53 @@ const cardSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  Image: {
+  subtitle: {
     type: String,
     require: true,
   },
+
   description: {
     type: String,
     require: true,
+  },
+  ImageUrl: {
+    type: String,
+  },
+  ImageAlt: {
+    type: String,
   },
   phone: {
     type: String,
     require: true,
   },
-  address: {
+  email: {
     type: String,
     require: true,
   },
-  card_number: {
+  web: {
     type: String,
+  },
+  state: {
+    type: String,
+  },
+  country: {
+    type: String,
+    require: true,
+  },
+  city: {
+    type: String,
+    require: true,
+  },
+  street: {
+    type: Number,
+    require: true,
+  },
+  houseNumber: {
+    type: Number,
+    require: true,
   },
 });
 
-const Card = mongoose.model("Cards", cardSchema);
+const Card = mongoose.model("Card", cardSchema);
 
 exports.Card = Card;

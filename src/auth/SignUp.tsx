@@ -38,7 +38,7 @@ function Signup() {
   const [street, setStreet] = useState("");
   const [houseNumber, setHouseNumber] = useState("");
   const [zip, setZip] = useState("");
-  const [checkBox, setcheckbox] = useState("");
+  const [checkBox, setCheckbox] = useState("");
 
   function validate(): boolean {
     if (!firstName || firstName.length < 2) {
@@ -240,7 +240,7 @@ function Signup() {
               className="form-check-input"
               type="checkbox"
               value={checkBox}
-              onChange={(e) => setcheckbox(e.target.value)}
+              onChange={(e) => setCheckbox(e.target.value)}
             />
             <label className="form-check-label">Signup as business</label>
           </div>
@@ -254,7 +254,9 @@ function Signup() {
           </div>
         </FormLayout>
         <div className="text-center">
-          <button className="btn btn btn-secondary col-4">SUBMIT</button>
+          <button className="btn btn btn-secondary col-4" onClick={handleClick}>
+            SUBMIT
+          </button>
         </div>
       </form>
     </>
