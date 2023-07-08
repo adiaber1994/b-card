@@ -10,6 +10,7 @@ import Signup from "./auth/SignUp";
 import MyCards from "./pages/MyCards";
 import { ToastContainer } from "react-toastify";
 import Login from "./auth/login";
+import RouteGuard from "./auth/RouteGuard";
 
 function App() {
   return (
@@ -20,7 +21,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="my cards" element={<MyCards />} />
+        <Route path="fav cards" element={<RouteGuard>""</RouteGuard>} />
+        <Route
+          path="my cards"
+          element={
+            <RouteGuard>
+              <MyCards />
+            </RouteGuard>
+          }
+        />
         <Route path="signup" element={<Signup />} />
         <Route path="Login" element={<Login />} />
       </Routes>

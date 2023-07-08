@@ -4,6 +4,7 @@ import { data } from "../pages/home/Home";
 import { CardProps } from "./Card";
 import Home from "../pages/home/Home";
 import Logout from "../auth/Logout";
+import { verifyToken } from "../auth/TokenManager";
 
 function Header() {
   const [search, setSearch] = useState("");
@@ -41,11 +42,18 @@ function Header() {
                 ABOUT
               </NavLink>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">
-                FAV CARDS
-              </a>
-            </li>
+            {!verifyToken() && (
+              <li>
+                <NavLink
+                  to="/fav Cards"
+                  className="nav-link active"
+                  aria-current="page"
+                >
+                  FAV CARDS
+                </NavLink>
+              </li>
+            )}
+
             <li className="nav-item">
               <NavLink to="/my cards" className="nav-link">
                 MY CARDS
@@ -74,14 +82,18 @@ function Header() {
               Sign Up
             </NavLink>
           </li>
-          <li className="nav-item">
-            <NavLink to="/login" className="nav-link">
-              Login
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <Logout />
-          </li>
+          {!verifyToken() && (
+            <li className="nav-item">
+              <NavLink to="/login" className="nav-link">
+                Login
+              </NavLink>
+            </li>
+          )}
+          {verifyToken() && (
+            <li className="nav-item">
+              <Logout />
+            </li>
+          )}
         </ul>
       </div>
     </nav>
