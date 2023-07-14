@@ -56,8 +56,8 @@ module.exports = {
       city: joi.string().min(6).max(255).required(),
       street: joi.string().min(6).max(255).required(),
       houseNumber: joi.number().min(6).max(255).required(),
-      zip: joi.string().min(6).max(255),
-      business: joi.boolean().required(),
+      zip: joi.number().min(6).max(255),
+      business: joi.boolean(),
     });
 
     const { error, value } = schema.validate(req.body);

@@ -56,6 +56,11 @@ function Header() {
                 MY CARDS
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="/add" className="nav-link">
+                add card
+              </NavLink>
+            </li>
             {/* <li className="nav-item">
               <a className="nav-link" href="#">
                 SANBOX

@@ -10,6 +10,7 @@ import MyCards from "./pages/MyCards";
 import { ToastContainer } from "react-toastify";
 import Login from "./auth/login";
 import RouteGuard from "./auth/RouteGuard";
+import AddCard from "./pages/home/AddCard";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="fav cards" element={<RouteGuard>""</RouteGuard>} />
+        <Route path="add" element={<AddCard />} />
         <Route
           path="my cards"
           element={
@@ -30,7 +32,7 @@ function App() {
           }
         />
         <Route path="Signup" element={<Signup />} />
-        <Route path="Login" element={<Login />} />
+        <Route path="login" element={<Login />} />
       </Routes>
     </>
   );

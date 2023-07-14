@@ -3,7 +3,9 @@ import Title from "../../component/Title";
 import Card, { CardProps } from "../../component/Card";
 import "./Home.css";
 import "../../component/Header";
-import { getCards } from "../../services/ApiService";
+import { addCard, getCards } from "../../services/ApiService";
+import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const data: Array<CardProps> = [
   // {
@@ -48,13 +50,20 @@ function Home() {
   const [cards, setCards] = useState<Array<CardProps>>([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/cards")
-      .then((res) => res.json())
-      .then((json) => console.log(json));
-    // getCards().then((json) => {
-    //   setCards(json);
-    // });
+    getCards().then((json) => {
+      setCards(json);
+    });
   }, []);
+
+  function onAdd(card: CardProps) {
+    addCard(card).then((json) => {
+      setCards([...cards, json]);
+
+      toast.success(
+        `Vacation to ${json.cardNumber} has been added successfully`
+      );
+    });
+  }
 
   // const filtered: Array<CardProps> = data.filter((card) =>
   //   card.title.toLowerCase().includes(value.trim().toLowerCase())
@@ -92,6 +101,9 @@ function Home() {
             />
           </div>
         ))}
+        <Link to="add">
+          <i className="bi bi-plus-circle-fill"></i>
+        </Link>
       </div>
     </>
   );

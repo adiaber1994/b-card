@@ -130,8 +130,8 @@ function Signup() {
           <div className="col-sm-2">
             <input
               type="text"
-              className="form-control text-center"
-              placeholder="Phone"
+              className="form-control"
+              placeholder="Phone*"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
             />

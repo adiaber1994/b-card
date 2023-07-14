@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import AddCard from "../component/AddCard";
+import AddCard from "./home/AddCard";
 import Card, { CardProps } from "../component/Card";
 import Title from "../component/Title";
 import { deleteCard, getCards } from "../services/ApiService";

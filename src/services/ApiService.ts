@@ -21,7 +21,7 @@ export async function getCardsById(_id: string): Promise<CardProps> {
   return res.json();
 }
 
-export async function AddCard(card: CardProps): Promise<CardProps> {
+export async function addCard(card: CardProps): Promise<CardProps> {
   const res = await fetch(`${cardsUrl}`, {
     method: "POST",
     headers: {
