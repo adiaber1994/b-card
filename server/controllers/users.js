@@ -48,7 +48,7 @@ module.exports = {
       lastName: joi.string().required().min(2).max(256),
       Phone: joi.string().min(9).max(15).required(),
       email: joi.string().min(6).max(255).required().email(),
-      password: joi.string().min(6).max(1024).required(),
+      password: joi.string().min(8).max(256).required(),
       imageUrl: joi.string().min(6).max(255),
       imageAlt: joi.string().min(6).max(255),
       state: joi.string().min(6).max(255),

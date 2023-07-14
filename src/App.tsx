@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 
 import Header from "./component/Header";
@@ -30,7 +29,7 @@ function App() {
             </RouteGuard>
           }
         />
-        <Route path="signup" element={<Signup />} />
+        <Route path="Signup" element={<Signup />} />
         <Route path="Login" element={<Login />} />
       </Routes>
     </>

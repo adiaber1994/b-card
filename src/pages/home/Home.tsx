@@ -48,9 +48,12 @@ function Home() {
   const [cards, setCards] = useState<Array<CardProps>>([]);
 
   useEffect(() => {
-    getCards().then((json) => {
-      setCards(json);
-    });
+    fetch("http://localhost:3000/cards")
+      .then((res) => res.json())
+      .then((json) => console.log(json));
+    // getCards().then((json) => {
+    //   setCards(json);
+    // });
   }, []);
 
   // const filtered: Array<CardProps> = data.filter((card) =>
@@ -70,12 +73,22 @@ function Home() {
           <div className="">
             <Card
               title={card.title}
-              image={card.image}
-              text={card.text}
+              imageUrl={card.imageUrl}
+              subtitle={card.subtitle}
               phone={card.phone}
-              address={card.address}
+              country={card.country}
               cardNumber={card.cardNumber}
-              _id={""}
+              _id={card._id}
+              children={undefined}
+              description={""}
+              imageAlt={""}
+              email={""}
+              web={""}
+              state={""}
+              city={""}
+              street={""}
+              houseNumber={0}
+              zip={0}
             />
           </div>
         ))}

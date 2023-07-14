@@ -44,12 +44,15 @@ const cardSchema = new mongoose.Schema({
     require: true,
   },
   street: {
-    type: Number,
+    type: String,
     require: true,
   },
   houseNumber: {
     type: Number,
     require: true,
+  },
+  zip: {
+    type: Number,
   },
 });
 

@@ -1,8 +1,5 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { data } from "../pages/home/Home";
-import { CardProps } from "./Card";
-import Home from "../pages/home/Home";
 import Logout from "../auth/Logout";
 import { verifyToken } from "../auth/TokenManager";
 
@@ -15,7 +12,7 @@ function Header() {
   }
 
   return (
-    <nav className="navbar navbar-expand-lg ">
+    <nav className="navbar navbar-expand-lg bg-warning-subtle">
       <div className="container-fluid d-flex align-items-center">
         <NavLink to={"/"} className="navbar-brand">
           BCard
@@ -59,11 +56,11 @@ function Header() {
                 MY CARDS
               </NavLink>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" href="#">
                 SANBOX
               </a>
-            </li>
+            </li> */}
           </ul>
         </div>
 
@@ -78,7 +75,7 @@ function Header() {
             />
           </form>
           <li className="nav-item">
-            <NavLink to="/signup" className="nav-link">
+            <NavLink to="/Signup" className="nav-link">
               Sign Up
             </NavLink>
           </li>
@@ -101,9 +98,3 @@ function Header() {
 }
 
 export default Header;
-function setSearch(value: string) {
-  throw new Error("Function not implemented.");
-}
-function setCards(filtered: CardProps[]) {
-  throw new Error("Function not implemented.");
-}

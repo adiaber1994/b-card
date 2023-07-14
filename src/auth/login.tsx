@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Title from "../component/Title";
-import { login, signup } from "../services/ApiService";
+import { login } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "./TokenManager";
 
@@ -14,7 +14,7 @@ function Login() {
       setError("email is reqired");
       return false;
     }
-    if (!password || password.length < 6) {
+    if (!password || password.length < 8) {
       setError("Password must contain at least 6 characters.");
       return false;
     }
@@ -29,22 +29,10 @@ function Login() {
     login({
       email,
       password,
-      middeleName: "",
-      lastName: "",
-      phone: "",
-      imageUrl: "",
-      imageAlt: "",
-      state: "",
-      country: "",
-      city: "",
-      street: "",
-      houseNumber: 0,
-      zip: 0,
-      biusiness: Boolean(),
-      token: "",
     }).then((user) => {
       setToken(user.token);
-      navigate("/home");
+
+      navigate("/");
     });
   }
 

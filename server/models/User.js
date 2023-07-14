@@ -34,7 +34,7 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: 6,
+    minlength: 8,
     maxlength: 1024,
   },
   imageUrl: {
@@ -85,9 +85,8 @@ const userSchema = new mongoose.Schema({
     minlength: 6,
     maxlength: 1024,
   },
-  checkBox: {
+  business: {
     type: Boolean,
-    required: true,
   },
 
   isAdmin: {

@@ -2,27 +2,28 @@ import { toast } from "react-toastify";
 import FormLayout from "../component/FormLayout";
 import Title from "../component/Title";
 import { useState } from "react";
-import { signup } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
+import { signup } from "../services/ApiService";
 
 export interface User {
   _id?: string;
   firstName?: string;
-  middeleName: string;
-  lastName: string;
-  phone: string;
+  middeleName?: string;
+  lastName?: string;
+  phone?: string;
   email: string;
-  password?: string;
-  imageUrl: string;
-  imageAlt: string;
-  state: string;
-  country: string;
-  city: string;
-  street: string;
-  houseNumber: number;
-  zip: number;
-  biusiness: Boolean;
-  token: string;
+  password: string;
+  imageUrl?: string;
+  imageAlt?: string;
+  state?: string;
+  country?: string;
+  city?: string;
+  street?: string;
+  houseNumber?: number;
+  zip?: number;
+  biusiness?: Boolean;
+  isAdmin?: Boolean;
+  token?: string;
 }
 
 function Signup() {
@@ -38,9 +39,9 @@ function Signup() {
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [street, setStreet] = useState("");
-  const [houseNumber, setHouseNumber] = useState("");
-  const [zip, setZip] = useState("");
-  const [checkBox, setCheckbox] = useState("");
+  const [houseNumber, setHouseNumber] = useState(0);
+  const [zip, setZip] = useState(0);
+  const [biusiness, setBiusiness] = useState("");
   const navigate = useNavigate();
 
   function validate(): boolean {
@@ -55,8 +56,8 @@ function Signup() {
       return false;
     }
 
-    if (!password || password.length < 6) {
-      toast.error("Password must contain at least 6 characters.");
+    if (!password || password.length < 8) {
+      toast.error("Password must contain at least 8 characters.");
       return false;
     }
 
@@ -79,13 +80,13 @@ function Signup() {
       country,
       city,
       street,
-      phone: "",
-      state: "",
-      houseNumber: 0,
-      zip: 0,
+      phone,
+      state,
+      houseNumber,
+      zip,
       biusiness: Boolean(),
-      token: "",
     }).then((user) => {
+      console.log(user);
       navigate("/login");
     });
   }
@@ -225,7 +226,7 @@ function Signup() {
               className="form-control text-center"
               placeholder="House number"
               value={houseNumber}
-              onChange={(e) => setHouseNumber(e.target.value)}
+              onChange={(e) => setHouseNumber(e.target.valueAsNumber)}
             />
           </div>
           <div className="col-sm-2">
@@ -234,7 +235,7 @@ function Signup() {
               className="form-control text-center"
               placeholder="Zip"
               value={zip}
-              onChange={(e) => setZip(e.target.value)}
+              onChange={(e) => setZip(e.target.valueAsNumber)}
             />
           </div>
         </FormLayout>
@@ -243,8 +244,8 @@ function Signup() {
             <input
               className="form-check-input"
               type="checkbox"
-              value={checkBox}
-              onChange={(e) => setCheckbox(e.target.value)}
+              value={biusiness}
+              onChange={(e) => setBiusiness(e.target.value)}
             />
             <label className="form-check-label">Signup as business</label>
           </div>

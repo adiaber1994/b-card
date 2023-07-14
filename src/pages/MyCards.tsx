@@ -6,13 +6,13 @@ import { deleteCard, getCards } from "../services/ApiService";
 import { toast } from "react-toastify";
 
 function MyCards() {
-  const [cards, setCards] = useState<Array<CardProps>>([]);
+  // const [cards, setCards] = useState<Array<CardProps>>([]);
 
-  useEffect(() => {
-    getCards().then((json) => {
-      setCards(json);
-    });
-  }, []);
+  // useEffect(() => {
+  //   getCards().then((json) => {
+  //     setCards(json);
+  //   });
+  // }, []);
 
   // function onAdd(card: CardProps) {
   //   AddCard(card).then((json) => {
@@ -21,12 +21,12 @@ function MyCards() {
   //   });
   // }
 
-  async function onDelete(_id: string) {
-    const res = await deleteCard(_id);
-    const updated = [...cards].filter((card) => card._id !== _id);
+  // async function onDelete(_id: string) {
+  //   const res = await deleteCard(_id);
+  //   const updated = [...cards].filter((card) => card._id !== _id);
 
-    setCards(updated);
-  }
+  //   setCards(updated);
+  // }
 
   return (
     <>

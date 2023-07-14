@@ -1,26 +1,59 @@
 export interface CardProps {
-  _id: string;
+  _id?: Number;
   title: string;
-  image: string;
-  text: string;
+  subtitle: string;
+  description: string;
+  imageUrl?: string;
+  imageAlt: string;
   phone: string;
-  address: string;
-  cardNumber: number;
+  email: string;
+  web: string;
+  state: string;
+  country: string;
+  city: string;
+  street: string;
+  houseNumber: number;
+  zip: number;
+  cardNumber?: number;
 }
 
-function Card({ title, image, text, phone, address, cardNumber }: CardProps) {
+interface Props extends CardProps {
+  children: React.ReactNode;
+}
+
+function Card({
+  title,
+  subtitle,
+  description,
+  imageAlt,
+  imageUrl,
+  phone,
+  email,
+  web,
+  state,
+  country,
+  city,
+  street,
+  houseNumber,
+  zip,
+}: Props) {
   return (
     <div className="col">
       <div className="card h-100">
-        <img src={image} className="card-img-top" alt="..." />
+        <img src={imageUrl} className="card-img-top" alt={imageAlt} />
         <div className="card-body">
           <h5 className="card-title">{title}</h5>
-          <p className="card-text">{text}</p>
+          <h6 className="card-subtitle">{subtitle}</h6>
+          <p className="card-text">{description}</p>
           <hr />
           <div>
             <p>phone: {phone}</p>
-            <p>address: {address}</p>
-            <p>card number: {cardNumber}</p>
+            <p>email:{email}</p>
+            <p>
+              address:{state} {country},{city} {street} {houseNumber}, {zip}
+            </p>
+            <p>web: {web}</p>
+            <p>card number: {}</p>
           </div>
           <div className="card-footer">
             <div className="">
