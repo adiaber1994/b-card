@@ -4,45 +4,28 @@ import Title from "../component/Title";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signup } from "../services/ApiService";
+import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, ThemeProvider, createTheme } from "@mui/material";
+
 
 export interface User {
   _id?: string;
   firstName?: string;
-  middeleName?: string;
   lastName?: string;
-  phone?: string;
   email: string;
   password: string;
-  imageUrl?: string;
-  imageAlt?: string;
-  state?: string;
-  country?: string;
-  city?: string;
-  street?: string;
-  houseNumber?: number;
-  zip?: number;
-  biusiness?: Boolean;
   isAdmin?: Boolean;
   token?: string;
 }
 
+const defaultTheme = createTheme();
+
 function Signup() {
   const [firstName, setFirstName] = useState("");
-  const [middeleName, setMiddeleName] = useState("");
   const [lastName, setlastName] = useState("");
-  const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [imageAlt, setImageAlt] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [houseNumber, setHouseNumber] = useState(0);
-  const [zip, setZip] = useState(0);
-  const [biusiness, setBiusiness] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   function validate(): boolean {
     if (!firstName || firstName.length < 2) {
@@ -64,28 +47,18 @@ function Signup() {
     return true;
   }
 
-  function handleClick() {
+  function handleSubmit() {
     if (!validate()) {
       return;
     }
 
     signup({
       firstName,
-      middeleName,
       lastName,
       email,
       password,
-      imageUrl,
-      imageAlt,
-      country,
-      city,
-      street,
-      phone,
-      state,
-      houseNumber,
-      zip,
-      biusiness: Boolean(),
-    }).then((user) => {
+    })
+    .then(( user) => {
       console.log(user);
       navigate("/login");
     });
@@ -93,32 +66,122 @@ function Signup() {
 
   return (
     <>
-      <div className="text-center mb-5">
-        <Title mainText={"REGISTER"} />
+
+<ThemeProvider theme={defaultTheme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+
+
+
+      <div>
+        <Title mainText={"SIGN-UP"} />
       </div>
-      <form className="">
-        <FormLayout>
-          <div className="col-sm-2">
-            <input
-              className="form-control"
-              placeholder="First Name*"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </div>
-          <div className="col-sm-2">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="middele Name"
-              value={middeleName}
-              onChange={(e) => setMiddeleName(e.target.value)}
-            />
-          </div>
-        </FormLayout>
+      
+      <Box
+     component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}
+      
+    >
+
+
+      <Grid container spacing={2}>
+      <Grid item xs={12} sm={6}>
+
+      <TextField  autoComplete="given-name"
+                  name="firstName"
+                  required
+                  fullWidth
+                  id="firstName"
+                  label="First Name"
+                  autoFocus
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+
+              <TextField
+                  required
+                  fullWidth
+                  id="lastName"
+                  label="Last Name"
+                  name="lastName"
+                  autoComplete="family-name"
+                  onChange={(e) => setlastName(e.target.value)}
+    
+                />
+
+
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="new-password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </Grid>
+              <Grid item xs={12}>
+                <FormControlLabel
+                  control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  label="I want to receive inspiration, marketing promotions and updates via email."
+                />
+              </Grid>
+              </Grid>
+              <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleSubmit}
+            >
+              Sign Up
+            </Button>
+            <Grid container justifyContent="center">
+              <Grid item>
+                <Link href="#" variant="body2">
+                  Already have an account? Sign in
+                </Link>
+              </Grid>
+            </Grid>
+              </Box>
+            </Box>
+              
+</Container>
+
+</ThemeProvider>
+
+
+
+
+
+  
+    {/* </div>
+
 
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
               className="form-control"
@@ -127,9 +190,9 @@ function Signup() {
               onChange={(e) => setlastName(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
-              type="text"
+              type="phone"
               className="form-control"
               placeholder="Phone*"
               value={phone}
@@ -139,20 +202,20 @@ function Signup() {
         </FormLayout>
 
         <div className="row g-2 justify-content-center mb-5">
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="email"
-              className="form-control text-center"
-              placeholder="Email"
+              className="form-control"
+              placeholder="Email*"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="password"
-              className="form-control text-center"
-              placeholder="Password"
+              className="form-control"
+              placeholder="Password*"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
@@ -160,19 +223,19 @@ function Signup() {
         </div>
 
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Image url"
               value={imageUrl}
               onChange={(e) => setImageUrl(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
-              type="text"
-              className="form-control text-center"
+              type="text" 
+              className="form-control"
               placeholder="Image alt"
               value={imageAlt}
               onChange={(e) => setImageAlt(e.target.value)}
@@ -180,90 +243,90 @@ function Signup() {
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="State"
               value={state}
               onChange={(e) => setState(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
-              className="form-control text-center"
-              placeholder="Country"
+              className="form-control"
+              placeholder="Country*"
               value={country}
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
-              className="form-control text-center"
-              placeholder="City"
+              className="form-control"
+              placeholder="City*"
               value={city}
               onChange={(e) => setCity(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="text"
-              className="form-control text-center"
-              placeholder="Street"
+              className="form-control"
+              placeholder="Street*"
               value={street}
               onChange={(e) => setStreet(e.target.value)}
             />
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
-              type="number"
-              className="form-control text-center"
-              placeholder="House number"
+              type="string"
+              className="form-control"
+              placeholder="House number*"
               value={houseNumber}
-              onChange={(e) => setHouseNumber(e.target.valueAsNumber)}
+              onChange={(e) => setHouseNumber(e.target.value)}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
-              type="number"
-              className="form-control text-center"
+            type="string"
               placeholder="Zip"
+              className="form-control"
               value={zip}
-              onChange={(e) => setZip(e.target.valueAsNumber)}
+              onChange={(e) => setZip(e.target.value)}
             />
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="form-check col-sm-4 mb-5">
+          <div className="form-check col-sm-6 mb-5">
             <input
               className="form-check-input"
               type="checkbox"
-              value={biusiness}
-              onChange={(e) => setBiusiness(e.target.value)}
+             checked={biusiness}
+              onChange={(e) => setBiusiness(!biusiness)}
             />
             <label className="form-check-label">Signup as business</label>
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="text-center gap-2">
-            <button className="btn btn-outline-danger col-2">CANCEL</button>
-            <button className="btn btn-outline-primary col-2">
+          <div className="text-center">
+            <button className="btn btn-outline-danger col-3">CANCEL</button>
+            <button className="btn btn-outline-primary col-3">
               <i className="bi bi-arrow-repeat"></i>
             </button>
           </div>
         </FormLayout>
         <div className="text-center">
-          <button className="btn btn btn-secondary col-4" onClick={handleClick}>
+          <button className="btn btn btn-secondary col-3" onClick={handleSubmit}>
             SUBMIT
           </button>
         </div>
-      </form>
+       */}
     </>
   );
 }

@@ -40,17 +40,17 @@ module.exports = {
         title: joi.string().required(),
         subtitle: joi.string().required(),
         description: joi.string().min(1).required(),
-        ImageUrl: joi.string().required(),
-        ImageAlt: joi.string().required(),
+        imageUrl: joi.string().required(),
+        imageAlt: joi.string().required(),
         phone: joi.string().required(),
-        email: joi.string().required(),
-        web: joi.string(),
-        state: joi.string(),
+        email: joi.string().required().email(),
+        web: joi.string().optional().allow(''),
+        state: joi.string().optional().allow(''), 
         country: joi.string().required(),
         city: joi.string().required(),
         street: joi.string().required(),
-        houseNumber: joi.number().required(),
-        zip: joi.number(),
+        houseNumber: joi.string().required(),
+        zip: joi.string().optional().allow(''),
       });
 
       const { error, value } = scheme.validate(req.body);
@@ -113,8 +113,8 @@ module.exports = {
         country: joi.string().required(),
         city: joi.string().required(),
         street: joi.string().required(),
-        houseNumber: joi.number().required(),
-        zip: joi.number(),
+        houseNumber: joi.string().required(),
+        zip: joi.string(),
       });
 
       const { error, value } = scheme.validate(req.body);

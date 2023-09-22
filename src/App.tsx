@@ -1,4 +1,4 @@
-import React from "react";
+import React, {createContext, useMemo, useState } from "react";
 import "./App.css";
 
 import Header from "./component/Header";
@@ -10,19 +10,57 @@ import MyCards from "./pages/MyCards";
 import { ToastContainer } from "react-toastify";
 import Login from "./auth/login";
 import RouteGuard from "./auth/RouteGuard";
+import SandBox from "./pages/SandBox";
+import AdminGuard from "./auth/AdminGuard";
 import AddCard from "./pages/home/AddCard";
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+// import Footer from "./component/Footer";
 
+const darkTheme = createTheme({
+  palette: {
+    mode: 'dark',
+  },
+});
+
+interface Context {
+  admin: Boolean;
+  setAdmin: Function;
+  userName: string
+  setUserName: Function
+}
+export const AppContext = createContext <Context | null>(null);
 function App() {
+  // const[mode] = useState<'light' | 'dark'>('light')
+  
+  const [admin, setAdmin] = useState(false);
+  const [userName, setUserName] = useState('');
+  const defaultTheme = createTheme();
+
+
+  // const theme =useMemo(
+  //   () =>
+  //     createTheme({
+  //       palette: {
+  //         mode,
+  //       },
+  //     }),
+  //   [mode],
+  // );
+ 
   return (
     <>
+       <ThemeProvider theme={defaultTheme}>
+     {/* <ThemeProvider theme={darkTheme}> */}
+      <CssBaseline/>
+    <AppContext.Provider value={{admin, setAdmin,userName,setUserName}}>
       <Header />
       <ToastContainer position="top-right" theme="light" />
 
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
-        <Route path="fav cards" element={<RouteGuard>""</RouteGuard>} />
-        <Route path="add" element={<AddCard />} />
+        <Route path="add" element={<AddCard/>} />
         <Route
           path="my cards"
           element={
@@ -31,9 +69,18 @@ function App() {
             </RouteGuard>
           }
         />
+        <Route path="sandBox" element={<AdminGuard><SandBox /></AdminGuard>}/>
         <Route path="Signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
+        
       </Routes>
+
+      
+
+      
+      </AppContext.Provider>
+      </ThemeProvider>
+      {/* </ThemeProvider> */}
     </>
   );
 }

@@ -1,4 +1,4 @@
-const { number } = require("joi");
+const { number, string } = require("joi");
 const mongoose = require("mongoose");
 
 const cardSchema = new mongoose.Schema({
@@ -15,11 +15,13 @@ const cardSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  ImageUrl: {
+  imageUrl: {
     type: String,
+    require: true,
   },
-  ImageAlt: {
+  imageAlt: {
     type: String,
+    require: true,
   },
   phone: {
     type: String,
@@ -31,9 +33,11 @@ const cardSchema = new mongoose.Schema({
   },
   web: {
     type: String,
+    require: false,
   },
   state: {
     type: String,
+    require: false,
   },
   country: {
     type: String,
@@ -48,14 +52,15 @@ const cardSchema = new mongoose.Schema({
     require: true,
   },
   houseNumber: {
-    type: Number,
+    type: String,
     require: true,
   },
   zip: {
-    type: Number,
+    type: String,
+    require: false,
   },
 });
 
-const Card = mongoose.model("Card", cardSchema);
+const Card = mongoose.model("card", cardSchema);
 
 exports.Card = Card;

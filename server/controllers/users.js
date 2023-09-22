@@ -44,20 +44,9 @@ module.exports = {
   signup: async function (req, res, next) {
     const schema = joi.object({
       firstName: joi.string().required().min(2).max(256),
-      middeleName: joi.string().min(2).max(256),
       lastName: joi.string().required().min(2).max(256),
-      Phone: joi.string().min(9).max(15).required(),
-      email: joi.string().min(6).max(255).required().email(),
+      email: joi.string().min(4).max(255).required().email(),
       password: joi.string().min(8).max(256).required(),
-      imageUrl: joi.string().min(6).max(255),
-      imageAlt: joi.string().min(6).max(255),
-      state: joi.string().min(6).max(255),
-      country: joi.string().min(6).max(255).required(),
-      city: joi.string().min(6).max(255).required(),
-      street: joi.string().min(6).max(255).required(),
-      houseNumber: joi.number().min(6).max(255).required(),
-      zip: joi.number().min(6).max(255),
-      business: joi.boolean(),
     });
 
     const { error, value } = schema.validate(req.body);
@@ -78,40 +67,19 @@ module.exports = {
 
       const newUser = new User({
         firstName: value.firstName,
-        middeleName: value.middeleName,
         lastName: value.lastName,
-        phone: value.phone,
         email: value.email,
         password: hash,
-        imageUrl: value.imageUrl,
-        imageAlt: value.imageAlt,
-        state: value.state,
-        country: value.country,
-        city: value.city,
-        street: value.street,
-        houseNumber: value.houseNumber,
-        zip: value.zip,
-        business: value.business,
       });
 
       await newUser.save();
 
       res.json({
         firstName: newUser.firstName,
-        middeleName: newUser.middeleName,
         lastName: newUser.lastName,
-        phone: newUser.phone,
         email: newUser.email,
         password: hash,
-        imageUrl: newUser.imageUrl,
-        imageAlt: newUser.imageAlt,
-        state: newUser.state,
-        country: newUser.country,
-        city: newUser.city,
-        street: newUser.street,
-        houseNumber: newUser.houseNumber,
-        zip: newUser.zip,
-        business: newUser.business,
+        
       });
     } catch (err) {
       console.log(err.message);

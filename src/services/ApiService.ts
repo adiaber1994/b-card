@@ -4,7 +4,7 @@ import { CardProps } from "../component/Card";
 
 const serverUrl = "http://localhost:3000/";
 const cardsUrl = `${serverUrl}cards/`;
-const usersUrl = `${serverUrl}users/Signup`;
+const usersUrl = `${serverUrl}users/`;
 
 export async function getCards(): Promise<Array<CardProps>> {
   const res = await fetch(`${cardsUrl}`);
@@ -59,7 +59,7 @@ export async function editCard(
 }
 
 export async function signup(user: User): Promise<User> {
-  const res = await fetch(`${usersUrl}`, {
+  const res = await fetch(`${usersUrl}signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

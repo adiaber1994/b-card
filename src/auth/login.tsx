@@ -1,13 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Title from "../component/Title";
 import { login } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "./TokenManager";
+import { AppContext } from "../App";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const context = useContext(AppContext);
+  const [error, setError] = useState("");
 
   function validate(): boolean {
     if (!email) {
@@ -30,9 +33,12 @@ function Login() {
       email,
       password,
     }).then((user) => {
-      setToken(user.token);
-
-      navigate("/");
+      setToken(user.token)
+      if (context) {
+        context.setAdmin(user.isAdmin || false);
+        context.setUserName(user.firstName);
+      }
+      navigate("/")
     });
   }
 
@@ -85,6 +91,4 @@ function Login() {
 }
 
 export default Login;
-function setError(arg0: string) {
-  throw new Error("Function not implemented.");
-}
+

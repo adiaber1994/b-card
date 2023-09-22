@@ -5,7 +5,7 @@ interface Props {
 
 function Title({ mainText, subText }: Props) {
   return (
-    <h2 className=" my-3">
+    <h2 className=" my-3" >
       {mainText}
       <br />
       {subText && <small className="text-muted">{subText}</small>}

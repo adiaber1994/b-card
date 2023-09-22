@@ -1,11 +1,12 @@
 import { useState } from "react";
 import FormLayout from "../../component/FormLayout";
 import Title from "../../component/Title";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { addCard } from "../../services/ApiService";
-import { CardProps } from "../../component/Card";
+import { useInputText } from "../../hooks/useInputText";
 
-// interface Card {
+
+// interface CardProps {
 //   _id?: Number;
 //   title: string;
 //   subtitle: string;
@@ -24,33 +25,37 @@ import { CardProps } from "../../component/Card";
 //   cardNumber?: number;
 // }
 
-function AddCard() {
+ function AddCard() {
   const navigate = useNavigate();
-  const [title, setTitle] = useState("");
-  const [subtitle, setSubtitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [phone, setPhone] = useState("");
-  const [email, setEmail] = useState("");
-  const [web, setWeb] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
-  const [imageAlt, setImageAlt] = useState("");
-  const [state, setState] = useState("");
-  const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
-  const [street, setStreet] = useState("");
-  const [houseNumber, setHousenumber] = useState(0);
-  const [zip, setZip] = useState(0);
+  const titleProps = useInputText(''); 
+  const subTitleProps = useInputText('');
+  const decriptionProps = useInputText('');
+  const phoneProps = useInputText('');
+  const emailProps = useInputText('');
+  const webProps = useInputText('');
+  const imageUrlProps = useInputText('');
+  const imageAltProps = useInputText('');
+  const stateProps = useInputText('');
+  const countryProps = useInputText('');
+  const cityProps = useInputText('');
+  const streetProps = useInputText('');
+  const houseNumberProps = useInputText('');
+  const zipProps = useInputText('');
   const [error, setError] = useState("");
+  
 
   function validate(): boolean {
-    if (!title) {
+    if (!titleProps) {
       setError("title is required");
       return false;
     }
+ 
 
     setError("");
-    return false;
+    return true;
   }
+
+  
 
   function handleClick() {
     if (!validate()) {
@@ -58,189 +63,201 @@ function AddCard() {
     }
 
     addCard({
-      title,
-      subtitle,
-      description,
-      email,
-      web,
-      imageUrl,
-      imageAlt,
-      phone,
-      country,
-      city,
-      street,
-      state,
-      houseNumber,
-      zip,
-    }).then((card) => {
-      console.log(card);
-      navigate("/");
-    });
-  }
+      title: titleProps.value,
+      subtitle: subTitleProps.value,
+      description: decriptionProps.value,
+      imageUrl: imageUrlProps.value,
+      imageAlt:imageAltProps.value,
+      phone: phoneProps.value,
+      email: emailProps.value,
+      web: webProps.value,
+      state:stateProps.value,
+      country:countryProps.value,
+      city:cityProps.value,
+      street:streetProps.value,
+      houseNumber:houseNumberProps.value,
+      zip:zipProps.value,
+    }).then(() => {
+      console.log();
+      navigate("/")
+    
+    })
+
+
+  };
 
   return (
     <>
       <div className="text-center mb-5">
         <Title mainText={"Ceate Card"} />
       </div>
-      <form className="">
+      <form>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
-              className="form-control text-center"
+             id="floatingInput" 
+              className="form-control"
               placeholder="Title*"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
+             {...titleProps}
+             
             />
-            <div className="text-danger">{error}</div>
+            <label htmlFor="floatingInput"> Title*</label>
+            {/* <div className="text-danger">{error}</div> */}
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
-              placeholder="Subtitle"
-              value={subtitle}
-              onChange={(e) => setSubtitle(e.target.value)}
+              className="form-control"
+              placeholder="Subtitle*"
+              {...subTitleProps}
             />
+            <label htmlFor="floatingInput"> Subtitle*</label>
           </div>
         </FormLayout>
 
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Description*"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              {...decriptionProps}
             />
+            <label htmlFor="floatingInput"> Description*</label>
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
-              type="number"
-              className="form-control text-center"
+            id="floatingInput"
+              type="text"
+              className="form-control"
               placeholder="Phone*"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              {...phoneProps}
             />
+            <label htmlFor="floatingInput"> Phone*</label>
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+             id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Email*"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              {...emailProps}
             />
+            <label htmlFor="floatingInput"> Email*</label>
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Web"
-              value={web}
-              onChange={(e) => setWeb(e.target.value)}
+              {...webProps}
             />
+            <label htmlFor="floatingInput"> Web</label>
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+             id="floatingInput"
               type="text"
-              className="form-control text-center"
-              placeholder="Image url"
-              value={imageUrl}
-              onChange={(e) => setImageUrl(e.target.value)}
+              className="form-control"
+              placeholder="Image url*"
+              {...imageUrlProps}
             />
+            <label htmlFor="floatingInput">Image Url*</label>
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
-              placeholder="Image alt"
-              value={imageAlt}
-              onChange={(e) => setImageAlt(e.target.value)}
+              className="form-control"
+              placeholder="Image alt*"
+              {...imageAltProps}
             />
+            <label htmlFor="floatingInput">Image Alt*</label>
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="State"
-              value={state}
-              onChange={(e) => setState(e.target.value)}
+              {...stateProps }
             />
+            <label htmlFor="floatingInput">State</label>
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Country"
-              value={country}
-              onChange={(e) => setCountry(e.target.value)}
+              {...countryProps}
             />
+            <label htmlFor="floatingInput form-floating">Country*</label>
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 form-floating">
             <input
+            id="floatingInput"
               type="text"
-              className="form-control text-center"
+              className="form-control"
               placeholder="City*"
-              value={city}
-              onChange={(e) => setCity(e.target.value)}
+              {...cityProps}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
-              type="number"
-              className="form-control text-center"
+              type="string"
+              className="form-control"
               placeholder="Street*"
-              value={street}
-              onChange={(e) => setStreet(e.target.value)}
+              {...streetProps}
             />
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="col-sm-2">
+          <div className="col-sm-3 mb-4">
             <input
-              type="text"
-              className="form-control text-center"
+              type="string"
+              className="form-control"
               placeholder="Housenumber*"
-              value={houseNumber}
-              onChange={(e) => setHousenumber(e.target.valueAsNumber)}
+              {...houseNumberProps}
             />
           </div>
-          <div className="col-sm-2">
+          <div className="col-sm-3">
             <input
               type="number"
-              className="form-control text-center"
+              className="form-control"
               placeholder="Zip"
-              value={zip}
-              onChange={(e) => setZip(e.target.valueAsNumber)}
+              {...zipProps}
             />
           </div>
         </FormLayout>
         <FormLayout>
-          <div className="text-center gap-2">
-            <button className="btn btn-outline-danger col-2">CANCEL</button>
-            <button className="btn btn-outline-primary col-2">
+          <div className="text-center mb-4">
+            <button className="btn btn-outline-danger col-3">CANCEL</button>
+            <button className="btn btn-outline-primary col-3">
               <i className="bi bi-arrow-repeat"></i>
             </button>
           </div>
         </FormLayout>
-        <div>
-          <Link
-            to="/"
-            className="text-center btn btn btn-secondary col-4"
+        <div className="text-center">
+          <button
+           
+            className="text-center btn btn btn-secondary col-5"
             onClick={handleClick}
+          
           >
-            SUBMIT
-          </Link>
+            ADD
+          </button>
         </div>
       </form>
     </>
@@ -248,3 +265,4 @@ function AddCard() {
 }
 
 export default AddCard;
+

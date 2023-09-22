@@ -1,3 +1,49 @@
 .height {
   height: 100%;
 }
+
+.home{
+  
+  text-align: center;
+
+}
+
+main {
+  
+  text-align: center;
+  
+  padding: 20px;
+}
+
+.album {
+  display: flex; /* שימוש ב-Flexbox להצגת הכרטיסים בשורה */
+  flex-wrap: wrap; /* נכון לצורך רספונסיביות */
+  justify-content: space-around; /* מרווחים בין הכרטיסים */
+  align-items: flex-start; /* התמקמות בחלק העליון של השורה */
+  width: 100%; /* רוחב מלא של השורה */
+  margin-bottom: 20px; /* מרווח בין השורות */
+}
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  align-items:center
+
+}
+
+.card {
+  margin: 10px; /* מרווח בין הכרטיסים */
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+  box-sizing: border-box; /* תפוח תיבת הכרטיס לקווים */
+}
+
+@media (max-width: 768px) {
+  main {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+
+

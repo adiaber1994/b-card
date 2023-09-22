@@ -1,37 +1,122 @@
-import { useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "../auth/Logout";
 import { verifyToken } from "../auth/TokenManager";
+import { AppContext } from "../App";
+import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import AdbIcon from '@mui/icons-material/Adb';
+import React from "react";
+import MenuIcon from '@mui/icons-material/Menu'
 
 function Header() {
   const [search, setSearch] = useState("");
+  const context = useContext(AppContext);
+  const[mode, setMode] = useState<'light' | 'dark'>('light')
+
+  const pages = ['About', '', 'Blog'];
+  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
+  
+  
+    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  
+    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElNav(event.currentTarget);
+    };
+    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
+      setAnchorElUser(event.currentTarget);
+    };
+  
+    const handleCloseNavMenu = () => {
+      setAnchorElNav(null);
+    };
+  
+    const handleCloseUserMenu = () => {
+      setAnchorElUser(null);
+    };
+
+
+
+
+//  const theme =useMemo(
+//     () =>
+//       createTheme({
+//         palette: {
+//           mode,
+//         },
+//       }),
+//     [mode],
+//   );
 
   function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
     const value = e.target.value;
     setSearch(value);
   }
 
+  // function handleClick() {
+  //   const toggleMode = mode === 'dark' ? 'light' : 'dark';
+  //   setMode(toggleMode)
+  // }
+
   return (
-    <nav className="navbar navbar-expand-lg bg-warning-subtle">
-      <div className="container-fluid d-flex align-items-center">
-        <NavLink to={"/"} className="navbar-brand">
-          BCard
-        </NavLink>
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
-          <ul className="navbar-nav">
-            <li className="nav-item">
-              <NavLink
+
+
+    <AppBar position="static">
+      <Container maxWidth="xl">
+        <Toolbar disableGutters>
+          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+          <Typography
+            variant="h6"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+          
+            BCARD WEDDING
+          </Typography>
+
+          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+            <IconButton
+              size="large"
+              aria-label="account of current user"
+              aria-controls="menu-appbar"
+              aria-haspopup="true"
+              onClick={handleOpenNavMenu}
+              color="inherit"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Menu
+              id="menu-appbar"
+              anchorEl={anchorElNav}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'left',
+              }}
+              keepMounted
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'left',
+              }}
+              open={Boolean(anchorElNav)}
+              onClose={handleCloseNavMenu}
+              sx={{
+                display: { xs: 'block', md: 'none' },
+              }}
+            >
+
+
+              < li className="nav-item">
+                <NavLink
                 to="/about"
                 className="nav-link active"
                 aria-current="page"
@@ -39,8 +124,59 @@ function Header() {
                 ABOUT
               </NavLink>
             </li>
-            {!verifyToken() && (
-              <li>
+
+            < li className="nav-item">
+                <NavLink
+                to="/fav Cards"
+                className="nav-link active"
+                aria-current="page"
+              >
+                FAV CARDS
+              </NavLink>
+            </li>
+
+
+
+
+              {/* {pages.map((page) => (
+                <MenuItem key={page} onClick={handleCloseNavMenu}>
+        
+                  <Typography textAlign="center">{page}</Typography>
+                </MenuItem>
+              ))} */}
+            </Menu>
+          </Box>
+          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Typography
+            variant="h5"
+            noWrap
+            component="a"
+            href="/"
+            sx={{
+              mr: 2,
+              display: { xs: 'flex', md: 'none' },
+              flexGrow: 1,
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            BCARD WEDDING
+          </Typography>
+          <Box  sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, mt: 2}} >
+            <ul>
+              <NavLink
+                to="/about"
+                className="nav-link active"
+                aria-current="page"
+              >
+                ABOUT
+              </NavLink>
+            </ul>
+            {/* {!verifyToken() && ( */}
+              <ul>
                 <NavLink
                   to="/fav Cards"
                   className="nav-link active"
@@ -48,58 +184,52 @@ function Header() {
                 >
                   FAV CARDS
                 </NavLink>
-              </li>
-            )}
+              </ul>
+            {/* )} */}
+            {/* {!verifyToken() &&  */}
 
-            <li className="nav-item">
+            <ul className="nav-item">
               <NavLink to="/my cards" className="nav-link">
                 MY CARDS
               </NavLink>
-            </li>
-            <li className="nav-item">
+            </ul>
+             {/* } */}
+            <ul className="nav-item">
               <NavLink to="/add" className="nav-link">
-                add card
+                ADD CARD
               </NavLink>
-            </li>
-            {/* <li className="nav-item">
-              <a className="nav-link" href="#">
-                SANBOX
-              </a>
-            </li> */}
-          </ul>
-        </div>
+            </ul>
+           {/* {context?.admin && */}
+            <ul className="nav-item">
+              <NavLink to="/sandBox" className="nav-link">
+                SANDBOX
+              </NavLink>
+            </ul>
+            {/* } */}
+            </Box>
 
-        <ul className="navbar-nav d-flex">
-          <form className="navbar" role="search">
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search"
-              value={search}
-              onChange={handleSearch}
-            />
-          </form>
-          <li className="nav-item">
-            <NavLink to="/Signup" className="nav-link">
-              Sign Up
-            </NavLink>
-          </li>
-          {!verifyToken() && (
-            <li className="nav-item">
-              <NavLink to="/login" className="nav-link">
-                Login
+            <Box sx={{ flexGrow:0, display: { xs: 'none', md: 'flex' }, mt: 2} }>
+            <ul className="nav-item">
+              <NavLink to="/Signup" className="nav-link">
+               SIGN IN
               </NavLink>
-            </li>
-          )}
-          {verifyToken() && (
-            <li className="nav-item">
-              <Logout />
-            </li>
-          )}
-        </ul>
-      </div>
-    </nav>
+            </ul>
+            <ul className="nav-item">
+              <NavLink to="/login" className="nav-link">
+               LOGIN
+              </NavLink>
+            </ul>
+
+            </Box>
+            </Toolbar>
+            </Container>
+        </AppBar>
+       
+
+    
   );
 }
 
 export default Header;
+
+
