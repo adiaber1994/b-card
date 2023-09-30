@@ -15,6 +15,7 @@ import AdminGuard from "./auth/AdminGuard";
 import AddCard from "./pages/home/AddCard";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import EditCard from "./pages/home/EditCard";
 // import Footer from "./component/Footer";
 
 const darkTheme = createTheme({
@@ -61,6 +62,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="about" element={<About />} />
         <Route path="add" element={<AddCard/>} />
+        <Route path="edit/:id" element={<EditCard/>}/>
         <Route
           path="my cards"
           element={

@@ -17,7 +17,6 @@ export interface User {
   token?: string;
 }
 
-const defaultTheme = createTheme();
 
 function Signup() {
   const [firstName, setFirstName] = useState("");
@@ -67,7 +66,7 @@ function Signup() {
   return (
     <>
 
-<ThemeProvider theme={defaultTheme}>
+
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -170,7 +169,7 @@ function Signup() {
               
 </Container>
 
-</ThemeProvider>
+
 
 
 

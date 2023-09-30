@@ -4,26 +4,9 @@ import Title from "../../component/Title";
 import { useNavigate } from "react-router-dom";
 import { addCard } from "../../services/ApiService";
 import { useInputText } from "../../hooks/useInputText";
+import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/material";
 
 
-// interface CardProps {
-//   _id?: Number;
-//   title: string;
-//   subtitle: string;
-//   description: string;
-//   imageUrl?: string;
-//   imageAlt: string;
-//   phone: string;
-//   email: string;
-//   web: string;
-//   state: string;
-//   country: string;
-//   city: string;
-//   street: string;
-//   houseNumber: number;
-//   zip: number;
-//   cardNumber?: number;
-// }
 
  function AddCard() {
   const navigate = useNavigate();
@@ -78,7 +61,6 @@ import { useInputText } from "../../hooks/useInputText";
       houseNumber:houseNumberProps.value,
       zip:zipProps.value,
     }).then(() => {
-      console.log();
       navigate("/")
     
     })
@@ -88,179 +70,221 @@ import { useInputText } from "../../hooks/useInputText";
 
   return (
     <>
-      <div className="text-center mb-5">
+        
+        <Container component="main" maxWidth="md">
+        <CssBaseline />
+             <Box
+                 sx={{
+                 marginTop: 3,
+                 display: 'flex',
+                 flexDirection: 'column',
+                 alignItems: 'center',
+                }}
+        >
+
+
+
+
+      <div className="text-center mb-3">
         <Title mainText={"Ceate Card"} />
       </div>
-      <form>
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-             id="floatingInput" 
-              className="form-control"
-              placeholder="Title*"
-             {...titleProps}
-             
-            />
-            <label htmlFor="floatingInput"> Title*</label>
-            {/* <div className="text-danger">{error}</div> */}
-          </div>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Subtitle*"
-              {...subTitleProps}
-            />
-            <label htmlFor="floatingInput"> Subtitle*</label>
-          </div>
-        </FormLayout>
 
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Description*"
-              {...decriptionProps}
-            />
-            <label htmlFor="floatingInput"> Description*</label>
-          </div>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Phone*"
-              {...phoneProps}
-            />
-            <label htmlFor="floatingInput"> Phone*</label>
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-             id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Email*"
-              {...emailProps}
-            />
-            <label htmlFor="floatingInput"> Email*</label>
-          </div>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Web"
-              {...webProps}
-            />
-            <label htmlFor="floatingInput"> Web</label>
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-             id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Image url*"
-              {...imageUrlProps}
-            />
-            <label htmlFor="floatingInput">Image Url*</label>
-          </div>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Image alt*"
-              {...imageAltProps}
-            />
-            <label htmlFor="floatingInput">Image Alt*</label>
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="State"
-              {...stateProps }
-            />
-            <label htmlFor="floatingInput">State</label>
-          </div>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="Country"
-              {...countryProps}
-            />
-            <label htmlFor="floatingInput form-floating">Country*</label>
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="col-sm-3 form-floating">
-            <input
-            id="floatingInput"
-              type="text"
-              className="form-control"
-              placeholder="City*"
-              {...cityProps}
-            />
-          </div>
-          <div className="col-sm-3">
-            <input
-              type="string"
-              className="form-control"
-              placeholder="Street*"
-              {...streetProps}
-            />
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="col-sm-3 mb-4">
-            <input
-              type="string"
-              className="form-control"
-              placeholder="Housenumber*"
-              {...houseNumberProps}
-            />
-          </div>
-          <div className="col-sm-3">
-            <input
-              type="number"
-              className="form-control"
-              placeholder="Zip"
-              {...zipProps}
-            />
-          </div>
-        </FormLayout>
-        <FormLayout>
-          <div className="text-center mb-4">
-            <button className="btn btn-outline-danger col-3">CANCEL</button>
-            <button className="btn btn-outline-primary col-3">
-              <i className="bi bi-arrow-repeat"></i>
-            </button>
-          </div>
-        </FormLayout>
-        <div className="text-center">
-          <button
-           
-            className="text-center btn btn btn-secondary col-5"
-            onClick={handleClick}
-          
-          >
-            ADD
-          </button>
-        </div>
-      </form>
-    </>
+      <Box
+  
+    >
+
+
+    <Grid container spacing={2}>
+    <Grid item xs={12} sm={6}>
+
+
+     <TextField
+         required
+         fullWidth
+         type="text"
+         className="form-control"
+         placeholder="Title"
+         {...titleProps}
+        />
+
+        </Grid>
+    
+             <Grid item xs={12} sm={6}>
+
+              <TextField
+               required
+               fullWidth
+               type="text"
+               className="form-control"
+               placeholder="Subtitle*"
+               {...subTitleProps}
+             />
+            </Grid>
+
+             <Grid item xs={6}>
+                <TextField
+                  required
+                  fullWidth
+                  className="form-control"
+                  type="text"
+                  id="description"
+                  label="description"
+                  autoComplete="description"
+                  {...decriptionProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="phone"
+                  label="phone"
+                  type="phone"
+                  id="phone"
+                  autoComplete="phone"
+                  {...phoneProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="email"
+                  label="email"
+                  type="email"
+                  id="email"
+                  autoComplete="email"
+                  {...emailProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="web"
+                  label="web"
+                  type="text"
+                  id="web"
+                  autoComplete="web"
+                  {...webProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="imag"
+                  label="image URL"
+                  type="text"
+                  id="image"
+                  autoComplete="Image"
+                  {...imageUrlProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="imag"
+                  label="image ALT"
+                  type="text"
+                  id="imageALT"
+                  {...imageAltProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="State"
+                  label="State"
+                  type="State"
+                  id="State"
+                  autoComplete="State"
+                  {...stateProps }
+                />
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Country"
+                  label="Country"
+                  type="Country"
+                  id="Country"
+                  autoComplete="Country"
+                  {...countryProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  name="City"
+                  label="City"
+                  type="City"
+                  id="City"
+                  autoComplete="City"
+                  {...cityProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Street"
+                  label="Street"
+                  type="Street"
+                  id="Street"
+                  autoComplete="Street"
+                  {...streetProps}
+                />
+              </Grid>
+              <Grid item xs={12} sm={4}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Housenumber"
+                  label="Housenumber"
+                  type="text"
+                  id="Housenumber"
+                  autoComplete="Housenumber"
+                  {...houseNumberProps}
+                />
+              </Grid>
+              {/* <Grid item xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  name="Zip"
+                  label="Zip"
+                  type="number"
+                  id="Housenumber"
+                  autoComplete="Zip"
+                  {...zipProps}
+                />
+              </Grid> */}
+            </Grid>
+
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleClick}
+            >
+             Add
+            </Button>
+            </Box>
+    
+    
+    </Box>
+    </Container>
+    
+        
+       
+  </>
+  
   );
 }
 

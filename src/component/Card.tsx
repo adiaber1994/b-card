@@ -1,4 +1,7 @@
-import { Box, Button, CardActionArea, CardActions, CardContent, CardMedia, Typography} from "@mui/material";
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Box, Button, ButtonGroup, CardActionArea, CardActions, CardContent, CardMedia, Checkbox, IconButton, Typography} from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
 
 export interface CardProps {
   _id?: string;
@@ -42,6 +45,8 @@ function Card({
 }: Props) {
   return (
     <>
+
+    <div className="cardBody">
     
     
     
@@ -63,22 +68,15 @@ function Card({
              
         </CardContent>
         <Typography>
-        <p>phone: {phone} <br />
-            email: {email} <br />
+        <p>phone:  {phone} <br />
+            email:  {email} <br />
             
-              address:{state} {country},{city} {street} {houseNumber}, {zip} <br />
+              address:  {city} {street} {houseNumber}, {zip} <br />
               </p>
        </Typography>  
       </CardActionArea>
-      <CardActions>
-
-        <Button size="small" color="primary">
-        <i className="bi bi-telephone-fill"></i>
-        <i className="bi bi-heart-fill"></i>
-        <i className="bi bi-trash3-fill"></i>
-
-        </Button>
-      </CardActions>
+      
+      </div>
       
       
       

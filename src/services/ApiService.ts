@@ -43,17 +43,14 @@ export async function deleteCard(_id: string): Promise<CardProps> {
   return res.json();
 }
 
-export async function editCard(
-  _id: string,
-  card: CardProps
-): Promise<CardProps> {
+export async function editCard(_id: string, card: CardProps): Promise<CardProps> {
   const res = await fetch(`${cardsUrl}${_id}`, {
     method: "PATCH",
     headers: {
       "Content-Tupe": "appliction/json",
-      "x-auth-token": getToken(),
+      "x-auth-token": getToken()
     },
-    body: JSON.stringify(card),
+    body: JSON.stringify(card)
   });
   return res.json();
 }

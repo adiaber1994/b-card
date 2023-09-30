@@ -30,7 +30,7 @@ module.exports = {
       res.json(result);
     } catch (err) {
       console.log(err);
-      res.status(400).json({ error: "error get the vacation" });
+      res.status(400).json({ error: "error get the card" });
     }
   },
 
@@ -101,20 +101,20 @@ module.exports = {
   edit: async function (req, res, next) {
     try {
       const scheme = joi.object({
-        title: joi.string().required(),
-        subtitle: joi.string().required(),
-        description: joi.string().min(1).required(),
-        ImageUrl: joi.string().required(),
-        ImageAlt: joi.string().required(),
-        phone: joi.string().required(),
-        email: joi.string().required(),
+        title: joi.string().optional().allow(''),
+        subtitle: joi.string().optional().allow(''),
+        description: joi.string().min(1).optional().allow(''),
+        ImageUrl: joi.string().optional().allow(''),
+        ImageAlt: joi.string().optional().allow(''),
+        phone: joi.string().optional().allow(''),
+        email: joi.string().optional().allow(''),
         web: joi.string(),
         state: joi.string(),
-        country: joi.string().required(),
-        city: joi.string().required(),
-        street: joi.string().required(),
-        houseNumber: joi.string().required(),
-        zip: joi.string(),
+        country: joi.string().optional().allow(''),
+        city: joi.string().optional().allow(''),
+        street: joi.string().optional().allow(''),
+        houseNumber: joi.string().optional().allow(''),
+        zip: joi.string().optional().allow(''),
       });
 
       const { error, value } = scheme.validate(req.body);

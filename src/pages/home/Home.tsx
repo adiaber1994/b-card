@@ -1,35 +1,22 @@
-import React, { useContext, useEffect, useState } from "react";
+ import React, { useContext, useEffect, useState } from "react";
 import Title from "../../component/Title";
 import Card, { CardProps } from "../../component/Card";
 import "./Home.css";
 import "../../component/Header";
-import {  getCards } from "../../services/ApiService";
+import {  deleteCard, getCards } from "../../services/ApiService";
 import { Link } from "react-router-dom";
 // import { toast } from "react-toastify";
 import { AppContext } from "../../App";
 import { toast } from "react-toastify/dist/core";
-import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid } from "@mui/material";
+import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton } from "@mui/material";
 import './Home.css';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+
+import { Favorite, FavoriteBorder } from "@mui/icons-material";
 export const data: Array<CardProps> = [
  
-  // {
-  //   title: "Hofit-flower",
-  //   image:
-  //     "https://cdn.pixabay.com/photo/2017/08/31/11/55/wedding-2700495_640.jpg",
-  //   text: "Natural flowers, bouquets and decorations for the bride and groom's car",
-  //   phone: "038554233",
-  //   address: "Jabotinsky 130, Ramat Gan",
-  //   cardNumber: 0,
-  // },
-  // {
-  //   title: "SEGAL",
-  //   image:
-  //     "https://cdn.pixabay.com/photo/2016/11/22/22/25/groom-1850932_640.jpg",
-  //   text: "Groom suits at good prices",
-  //   phone: "035887412",
-  //   address: "Sderot Giborei Israel 5, Netanya,",
-  //   cardNumber: 0,
-  // },
+  
 ];
 
 function Home() {
@@ -44,34 +31,43 @@ function Home() {
     });
   }, []);
 
+  async function onDelete (_id: string) {
+   
+
+    const res = await deleteCard(_id);
+
+    const updated = [...cards].filter(
+      cards => cards._id !== _id
+    )
+
+
+    setCards(updated);
+  }
+
+
   
-  // function addCard(card: CardProps) {
-  //   addCard(card).then((json) => {
-  //     setCards([...cards, json]);
-
-  //     toast.success(
-  //       `Vacation to ${json.cardNumber} has been added successfully`
-  //     );
-  //   });
-  // }
-
-  // const filtered: Array<CardProps> = data.filter((card) =>
-  //   card.title.toLowerCase().includes(value.trim().toLowerCase())
-  // );
-  // setCards(filtered);
-
-  return (
-    
     
 
-<>
-<div className="home">
+
 
 
  
 
 
+
+
+  
+
+
+  return (
+
+    <>
     
+    
+
+
+    <div className="home">
+
 
       <Title
         mainText={"Cards Page"}
@@ -94,6 +90,21 @@ function Home() {
             children={undefined}
             key={card._id}
             {...card}/>
+
+<CardActions>
+      <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+      <IconButton aria-label="delete"  color="primary">
+  <DeleteIcon onClick={()=> onDelete(card._id as string)} />
+  </IconButton>
+  <Link to={`/edit/${card._id}`}>
+  <IconButton aria-label="edit"  color="primary">
+  <EditIcon/>
+  </IconButton>
+  </Link> 
+  
+  
+      
+      </CardActions>
           
             </div>
           
