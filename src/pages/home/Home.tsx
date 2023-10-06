@@ -8,10 +8,11 @@ import { Link } from "react-router-dom";
 // import { toast } from "react-toastify";
 import { AppContext } from "../../App";
 import { toast } from "react-toastify/dist/core";
-import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton } from "@mui/material";
+import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton, Fab } from "@mui/material";
 import './Home.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 export const data: Array<CardProps> = [
@@ -69,9 +70,10 @@ function Home() {
     <div className="home">
 
 
-      <Title
-        mainText={"Cards Page"}
-        subText={"Here you can find business cards from all categories"}
+      <Title 
+      
+        mainText={"Build your wedding"}
+        subText={"Here you can choose and save all the cards you liked"}
       />
       <main>
       <section className="album">
@@ -91,36 +93,35 @@ function Home() {
             key={card._id}
             {...card}/>
 
-<CardActions>
-      <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
-      <IconButton aria-label="delete"  color="primary">
-  <DeleteIcon onClick={()=> onDelete(card._id as string)} />
-  </IconButton>
-  <Link to={`/edit/${card._id}`}>
-  <IconButton aria-label="edit"  color="primary">
-  <EditIcon/>
-  </IconButton>
-  </Link> 
-  
-  
-      
-      </CardActions>
+           <CardActions>
+           <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+           <IconButton aria-label="delete"  color="primary">
+           <DeleteIcon onClick={()=> onDelete(card._id as string)} />
+            </IconButton>
+           <Link to={`/edit/${card._id}`}>
+           <IconButton aria-label="edit"  color="primary">
+            <EditIcon/>
+             </IconButton>
+             </Link> 
+       </CardActions>
           
-            </div>
+     </div>
           
         ))
         }
         </div>
+        <Box sx={{ '& > :not(style)': { m: 1 } }}>
+        <Link  to="add"> 
+      <Fab color="primary" aria-label="add">
+        <AddIcon />
+      </Fab>
+      </Link>
+      </Box>
          
         
-        <div className="ronded">
-        <Link className="rounded btn btn-primary" to="add">
-          <i className="bi bi-plus"></i>
-        </Link>
         
         
         
-        </div>
         </section>
       
       

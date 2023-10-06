@@ -1,3 +1,4 @@
+import "./Title.css"
 interface Props {
   mainText: string;
   subText?: string;
@@ -6,7 +7,7 @@ interface Props {
 function Title({ mainText, subText }: Props) {
   return (
     <h2 className=" my-3" >
-      {mainText}
+      {mainText }
       <br />
       {subText && <small className="text-muted">{subText}</small>}
     </h2>

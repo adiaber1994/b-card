@@ -116,8 +116,12 @@ module.exports = {
         houseNumber: joi.string().optional().allow(''),
         zip: joi.string().optional().allow(''),
       });
+      
 
       const { error, value } = scheme.validate(req.body);
+      console.log (req.body)
+
+      
 
       if (error) {
         console.log(error.details[0].message);
@@ -129,13 +133,16 @@ module.exports = {
         {
           _id: req.params.id,
         },
+        
         value
       );
 
+     
+
       if (!card) return res.status(404).send("Given ID was not found.");
 
-      const updated = await Card.findOne({ _id: req.params.id });
-      res.json(updated);
+      
+      res.json(card);
     } catch (err) {
       console.log(err);
       res.status(400).json({ error: "fail to update data" });

@@ -88,6 +88,7 @@ function EditCard() {
             
         }) 
         .then(json => {
+            console.log(json)
             navigate('/')
 
         })
@@ -137,6 +138,7 @@ function EditCard() {
          type="text"
          className="form-control"
          label="title"
+         id="title"
          value={title}
          onChange={(e) => setTitle(e.target.value)}
          
@@ -166,6 +168,7 @@ function EditCard() {
                   className="form-control"
                   type="text"
                   label="description"
+                  id="description"
                   autoComplete="description"
                   value={description}
 
@@ -180,6 +183,7 @@ function EditCard() {
                   name="phone"
                  label="Phone"
                   type="phone"
+                  id="phone"
                   autoComplete="phone"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
@@ -193,6 +197,7 @@ function EditCard() {
                   name="email"
                   label="email"
                   type="email"
+                  id="email"
                   value={email}
                   autoComplete="email"
                   onChange={(e) => setEmail(e.target.value)}
@@ -205,6 +210,7 @@ function EditCard() {
                   name="web"
                   type="text"
                   label="web"
+                  id="web"
                   autoComplete="web"
                   onChange={(e) => setWeb(e.target.value)}
                  
@@ -217,6 +223,7 @@ function EditCard() {
                   name="imag"
                   label="Image URL"
                   type="text"
+                  id="imagUrl"
                   value={imageUrl}
                   autoComplete="Image"
                   onChange={(e) => setImageUrl(e.target.value)}
@@ -230,6 +237,7 @@ function EditCard() {
                   name="imag"
                   label="imag ALT"
                   type="text"
+                  id="imageAlt"
                   value={imageAlt}
                   onChange={(e) => setImageAlt(e.target.value)}
                   
@@ -241,6 +249,7 @@ function EditCard() {
                   name="State"
                   label="State"
                   type="State"
+                  id="state"
                   value={state}
                   autoComplete="State"
                   onChange={(e) => setState(e.target.value)}
@@ -254,6 +263,7 @@ function EditCard() {
                   name="Country"
                   label="Country"
                   type="Country"
+                  id="country"
                   value={country}
                   autoComplete="Country"
                   onChange={(e) => setCountry(e.target.value)}
@@ -267,6 +277,7 @@ function EditCard() {
                   name="City"
                   label="City"
                   type="City"
+                  id="city"
                   value={city}
                   autoComplete="City"
                   onChange={(e) => setCity(e.target.value)}
@@ -280,6 +291,7 @@ function EditCard() {
                   name="Street"
                   label="Street"
                   type="Street"
+                  id="street"
                   value={street}
                   autoComplete="Street"
                   onChange={(e) => setStreet(e.target.value)}
@@ -292,6 +304,7 @@ function EditCard() {
                   fullWidth
                   name="Housenumber"
                   label="Housenumber"
+                  id="houseNumber"
                   type="text"
                   value={houseNumber}
                   autoComplete="Housenumber"

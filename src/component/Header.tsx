@@ -4,14 +4,16 @@ import Logout from "../auth/Logout";
 import { verifyToken } from "../auth/TokenManager";
 import { AppContext } from "../App";
 import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
-import AdbIcon from '@mui/icons-material/Adb';
+import Diversity1Icon from '@mui/icons-material/Diversity1';
 import React from "react";
 import MenuIcon from '@mui/icons-material/Menu'
+import { createTheme } from '@mui/material/styles';
 
 function Header() {
   const [search, setSearch] = useState("");
   const context = useContext(AppContext);
   const[mode, setMode] = useState<'light' | 'dark'>('light')
+  
 
   const pages = ['About', '', 'Blog'];
   const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
@@ -60,17 +62,21 @@ function Header() {
 
   return (
 
+  
+
 
     <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+       <Container maxWidth="xl">
+      
+        <Toolbar disableGutters >
+          <Diversity1Icon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
             component="a"
             href="/"
             sx={{
+              
               mr: 2,
               display: { xs: 'none', md: 'flex' },
               fontFamily: 'monospace',
@@ -92,6 +98,7 @@ function Header() {
               aria-haspopup="true"
               onClick={handleOpenNavMenu}
               color="inherit"
+              
             >
               <MenuIcon />
             </IconButton>
@@ -146,7 +153,7 @@ function Header() {
               ))} */}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
+          <Diversity1Icon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -223,7 +230,9 @@ function Header() {
             </Box>
             </Toolbar>
             </Container>
+            
         </AppBar>
+       
        
 
     

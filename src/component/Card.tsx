@@ -54,7 +54,7 @@ function Card({
       <CardActionArea>
         <CardMedia
           component="img"
-          height="140"
+          height="200"
           image= {imageUrl}
           alt={imageAlt}
         />

@@ -50,7 +50,7 @@ export async function editCard(_id: string, card: CardProps): Promise<CardProps>
       "Content-Tupe": "appliction/json",
       "x-auth-token": getToken()
     },
-    body: JSON.stringify(card)
+    body: JSON.stringify({card})
   });
   return res.json();
 }

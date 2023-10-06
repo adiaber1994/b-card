@@ -1,6 +1,7 @@
 import React, {createContext, useMemo, useState } from "react";
 import "./App.css";
 
+
 import Header from "./component/Header";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -18,10 +19,26 @@ import CssBaseline from '@mui/material/CssBaseline';
 import EditCard from "./pages/home/EditCard";
 // import Footer from "./component/Footer";
 
-const darkTheme = createTheme({
-  palette: {
-    mode: 'dark',
-  },
+const theme = createTheme({
+  
+    palette: {
+      primary: {
+        light: '#d7a8df',
+        main: '#ce93d8',
+        dark: '#906697',
+        contrastText: '#fff',
+      },
+      secondary: {
+        light: '#ff7961',
+        main: '#f44336',
+        dark: '#ba000d',
+        contrastText: '#000',
+      },
+    },
+  
+  // palette: {
+  //   mode: 'dark',
+  // },
 });
 
 interface Context {
@@ -51,7 +68,7 @@ function App() {
  
   return (
     <>
-       <ThemeProvider theme={defaultTheme}>
+       <ThemeProvider theme={theme}>
      {/* <ThemeProvider theme={darkTheme}> */}
       <CssBaseline/>
     <AppContext.Provider value={{admin, setAdmin,userName,setUserName}}>
