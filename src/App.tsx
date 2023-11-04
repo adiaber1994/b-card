@@ -1,7 +1,5 @@
 import React, {createContext, useMemo, useState } from "react";
 import "./App.css";
-
-
 import Header from "./component/Header";
 import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
@@ -17,9 +15,13 @@ import AddCard from "./pages/home/AddCard";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import EditCard from "./pages/home/EditCard";
-// import Footer from "./component/Footer";
+import ViewCard from "./pages/home/ViewCard";
+import Footer from "./component/Footer";
+
 
 const theme = createTheme({
+
+  
   
     palette: {
       primary: {
@@ -80,6 +82,7 @@ function App() {
         <Route path="about" element={<About />} />
         <Route path="add" element={<AddCard/>} />
         <Route path="edit/:id" element={<EditCard/>}/>
+        <Route path="view/:id" element={<ViewCard/>}/>
         <Route
           path="my cards"
           element={
@@ -95,6 +98,8 @@ function App() {
       </Routes>
 
       
+
+      <Footer/>
 
       
       </AppContext.Provider>

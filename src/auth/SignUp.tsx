@@ -58,8 +58,8 @@ function Signup() {
       password,
     })
     .then(( user) => {
-      console.log(user);
-      navigate("/login");
+    
+      navigate('/login');
     });
   }
 
@@ -85,7 +85,7 @@ function Signup() {
       </div>
       
       <Box
-     component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}
+     component="form" sx={{ mt: 3 }}
       
     >
 
@@ -149,7 +149,6 @@ function Signup() {
               </Grid>
               </Grid>
               <Button
-              type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}

@@ -1,7 +1,9 @@
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
-import { Box, Button, ButtonGroup, CardActionArea, CardActions, CardContent, CardMedia, Checkbox, IconButton, Typography} from "@mui/material";
+import { Backdrop, Box, Button, ButtonGroup, CardActionArea, CardActions, CardContent, CardMedia, Checkbox, IconButton, Typography} from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import React from "react";
+import { Link } from "react-router-dom";
 
 export interface CardProps {
   _id?: string;
@@ -18,15 +20,17 @@ export interface CardProps {
   city: string;
   street: string;
   houseNumber: string;
-  zip: string;
   cardNumber?: number;
 }
+
+
 
 interface Props extends CardProps {
   children: React.ReactNode;
 }
 
 function Card({
+
   title,
   subtitle,
   description,
@@ -40,9 +44,9 @@ function Card({
   city,
   street,
   houseNumber,
-  zip,
   cardNumber
 }: Props) {
+
   return (
     <>
 
@@ -50,7 +54,6 @@ function Card({
     
     
     
-      
       <CardActionArea>
         <CardMedia
           component="img"
@@ -71,10 +74,11 @@ function Card({
         <p>phone:  {phone} <br />
             email:  {email} <br />
             
-              address:  {city} {street} {houseNumber}, {zip} <br />
+              address:  {city} {street} {houseNumber} <br />
               </p>
        </Typography>  
       </CardActionArea>
+      
       
       </div>
       

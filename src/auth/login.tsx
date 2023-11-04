@@ -1,9 +1,10 @@
 import { useContext, useState } from "react";
 import Title from "../component/Title";
 import { login } from "../services/ApiService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setToken } from "./TokenManager";
 import { AppContext } from "../App";
+import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/material";
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -43,50 +44,105 @@ function Login() {
   }
 
   return (
-    <>
-      <div className="text-center mb-5">
-        <Title mainText={"LOGIN"} />
+
+    <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+
+
+
+      <div>
+      <Title mainText={"LOGIN"} />
       </div>
-      <div className="m-4 d-flex justify-content-center">
-        <form className="col-sm-12 col-md-5">
-          <div className="mb-3 form-floating">
-            <input
-              type="email"
-              placeholder="email"
-              className="form-control"
+      
+      <Box component="form">
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="email"
+              label="Email Address"
+              name="email"
+              autoComplete="email"
+              autoFocus
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label id="floatingInputInvalid">Email</label>
-          </div>
-          <div className="mb-5 form-floating">
-            <input
+           
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              name="password"
+              label="Password"
               type="password"
-              placeholder="password"
-              className="form-control"
+              id="password"
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            <label>Password</label>
-          </div>
-          <div className="d-flex flex-row mb-5">
-            <button className="btn btn-outline-danger col-6">CANCEL</button>
+            <div className="text-danger">{error}</div>
+             <Button
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+              onClick={handleClick}
+            >
+              Sign In
+            </Button>
 
-            <button className="btn btn-outline-primary col-6">
-              <i className="bi bi-arrow-repeat"></i>
-            </button>
-          </div>
+          < Grid container spacing={1} justifyContent={"center"}>
+            <Grid >
 
-          <button
-            type="submit"
-            className="btn btn-primary col-12"
-            onClick={handleClick}
-          >
-            SUBMIT
-          </button>
-        </form>
-      </div>
-    </>
+            <Button
+            variant="outlined" color="error"
+            
+              sx={{ mt: 3, mb: 2, mr:5}}
+            >
+             CANCEL
+            </Button>
+          
+            
+            <Button
+            variant="outlined" color="error"
+            
+              sx={{ mt: 3, mb: 2}}
+            >
+             <i className="bi bi-arrow-repeat"></i>
+            </Button>
+            </Grid>
+            
+            <Grid>
+
+            <Link  to="/" >
+                  {"Don't have an account? Sign Up"}
+                </Link>
+                </Grid>
+            
+
+            </Grid>
+
+            
+            
+          </Box>
+          </Box>
+
+         
+                
+        
+       </Container>
+       
+        
+    
+        
+    
   );
 }
 

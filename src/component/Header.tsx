@@ -50,10 +50,7 @@ function Header() {
 //     [mode],
 //   );
 
-  function handleSearch(e: React.ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setSearch(value);
-  }
+  
 
   // function handleClick() {
   //   const toggleMode = mode === 'dark' ? 'light' : 'dark';
@@ -226,6 +223,11 @@ function Header() {
                LOGIN
               </NavLink>
             </ul>
+            <ul className="nav-item">
+            
+              <Logout/>
+            </ul>
+            
 
             </Box>
             </Toolbar>

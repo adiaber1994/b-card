@@ -23,7 +23,6 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
   const cityProps = useInputText('');
   const streetProps = useInputText('');
   const houseNumberProps = useInputText('');
-  const zipProps = useInputText('');
   const [error, setError] = useState("");
   
 
@@ -59,7 +58,7 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
       city:cityProps.value,
       street:streetProps.value,
       houseNumber:houseNumberProps.value,
-      zip:zipProps.value,
+
     }).then(() => {
       navigate("/")
     
@@ -252,18 +251,7 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
                   {...houseNumberProps}
                 />
               </Grid>
-              {/* <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  name="Zip"
-                  label="Zip"
-                  type="number"
-                  id="Housenumber"
-                  autoComplete="Zip"
-                  {...zipProps}
-                />
-              </Grid> */}
+
             </Grid>
 
             <Button

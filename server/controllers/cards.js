@@ -50,7 +50,6 @@ module.exports = {
         city: joi.string().required(),
         street: joi.string().required(),
         houseNumber: joi.string().required(),
-        zip: joi.string().optional().allow(''),
       });
 
       const { error, value } = scheme.validate(req.body);
@@ -101,7 +100,7 @@ module.exports = {
   edit: async function (req, res, next) {
     try {
       const scheme = joi.object({
-        title: joi.string().optional().allow(''),
+        title: joi.string().required(),
         subtitle: joi.string().optional().allow(''),
         description: joi.string().min(1).optional().allow(''),
         ImageUrl: joi.string().optional().allow(''),
@@ -114,7 +113,7 @@ module.exports = {
         city: joi.string().optional().allow(''),
         street: joi.string().optional().allow(''),
         houseNumber: joi.string().optional().allow(''),
-        zip: joi.string().optional().allow(''),
+       
       });
       
 
@@ -133,8 +132,8 @@ module.exports = {
         {
           _id: req.params.id,
         },
-        
         value
+        
       );
 
      
@@ -142,10 +141,12 @@ module.exports = {
       if (!card) return res.status(404).send("Given ID was not found.");
 
       
-      res.json(card);
-    } catch (err) {
-      console.log(err);
-      res.status(400).json({ error: "fail to update data" });
-    }
-  },
-};
+      const updated = await Card.findOne({ _id: req.params.id });
+            res.json(updated);
+        }
+        catch (err) {
+            console.log(err);
+            res.status(400).json({ error: "fail to update data" });
+        }
+    },
+}

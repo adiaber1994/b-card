@@ -55,10 +55,6 @@ const cardSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-  zip: {
-    type: String,
-    require: false,
-  },
 });
 
 const Card = mongoose.model("card", cardSchema);

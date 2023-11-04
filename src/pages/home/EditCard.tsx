@@ -23,7 +23,7 @@ function EditCard() {
     const [city, setCity] = useState('');
     const [street, setStreet] = useState('');
     const [houseNumber, setHouseNumber] = useState('');
-    const[zip, setZip] = useState('');
+
 
     
     
@@ -55,19 +55,22 @@ function EditCard() {
     }, [id])
 
     function validate():boolean {
-    //     if (!title) {
-    //         setError("title is required");
-    //   return false;
-    //     }
+        if (!title) {
+            setError("title is required");
+      return false;
+        }
 
         setError('')
         return true
     }
 
     function handleClick() {
+
         if (!validate()) {
             return
         }
+
+
         if (!id) return;
 
         editCard(id, {
@@ -84,7 +87,7 @@ function EditCard() {
             city,
             street,
             houseNumber,
-            zip
+           
             
         }) 
         .then(json => {
@@ -92,7 +95,7 @@ function EditCard() {
             navigate('/')
 
         })
-
+    
         
     }
 
@@ -119,9 +122,10 @@ function EditCard() {
 
 
 
-      <div className="text-center mb-3">
-        <Title mainText={"Edit Card"} />
-      </div>
+<div className="text-center mb-3">
+            <Title mainText={"Edit Card"} />
+            {error && <p style={{ color: 'red' }}>{error}</p>} {/* Display the error */}
+        </div>
 
       <Box
   
@@ -136,7 +140,6 @@ function EditCard() {
          required
          fullWidth
          type="text"
-         className="form-control"
          label="title"
          id="title"
          value={title}
@@ -322,7 +325,7 @@ function EditCard() {
               
               
             >
-             Updat
+             Update
             </Button>
             <Button
               type="submit"

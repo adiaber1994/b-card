@@ -3,14 +3,18 @@
 .home{
   
   text-align: center;
+  align-items: center;
+  
 
 }
 
-main {
-  
+.main {
+  align-items: center;
   text-align: center;
   
-  padding: 20px;
+ 
+  
+ 
 }
 
 .album {
@@ -20,11 +24,13 @@ main {
   align-items: flex-start; /* התמקמות בחלק העליון של השורה */
   width: 100%; /* רוחב מלא של השורה */
   margin-bottom: 20px; /* מרווח בין השורות */
+  
 }
 .cards {
   display: flex;
   flex-wrap: wrap;
-  align-items:center
+ 
+  
 
 }
 

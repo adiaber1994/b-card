@@ -10,8 +10,8 @@ function Logout() {
   }
 
   return (
-    <button className="btn btn-link nav-link" onClick={handleClick}>
-      Log Out
+    <button className="nav-link" onClick={handleClick}>
+      LOGOUT
     </button>
   );
 }

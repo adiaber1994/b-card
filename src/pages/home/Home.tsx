@@ -1,4 +1,4 @@
- import React, { useContext, useEffect, useState } from "react";
+ import React, { ChangeEvent, useContext, useEffect, useState } from "react";
 import Title from "../../component/Title";
 import Card, { CardProps } from "../../component/Card";
 import "./Home.css";
@@ -8,13 +8,13 @@ import { Link } from "react-router-dom";
 // import { toast } from "react-toastify";
 import { AppContext } from "../../App";
 import { toast } from "react-toastify/dist/core";
-import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton, Fab } from "@mui/material";
+import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton, Fab, Button } from "@mui/material";
 import './Home.css';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 
-import { Favorite, FavoriteBorder } from "@mui/icons-material";
+import { Favorite, FavoriteBorder} from "@mui/icons-material";
 export const data: Array<CardProps> = [
  
   
@@ -23,15 +23,33 @@ export const data: Array<CardProps> = [
 function Home() {
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const context = useContext(AppContext)
+  const [search, setSearch] = useState('');
+  const [origData, setOrigData] = useState<Array<CardProps>>([]);
+
+
   
 
   useEffect(() => {
     getCards().then((json) => {
       
       setCards(json);
+      setOrigData(json);
     });
   }, []);
 
+  function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+    const value = e.target.value;
+    setSearch(value);
+
+    const term = value.toLowerCase();
+    const result = [...origData].filter(card =>
+        card.subtitle.toLowerCase().includes(term)
+    )
+
+    setCards(result);
+}
+
+ 
   async function onDelete (_id: string) {
    
 
@@ -45,16 +63,7 @@ function Home() {
     setCards(updated);
   }
 
-
   
-    
-
-
-
-
- 
-
-
 
 
   
@@ -68,6 +77,7 @@ function Home() {
 
 
     <div className="home">
+      
 
 
       <Title 
@@ -75,7 +85,22 @@ function Home() {
         mainText={"Build your wedding"}
         subText={"Here you can choose and save all the cards you liked"}
       />
-      <main>
+
+     
+      <div className="main">
+
+      <div className="d-flex">
+        <div className="px-5">
+        <input className="form-control mx-3" 
+        placeholder="Search"
+        value={search}
+        onChange={handleSearch} />
+        </div>
+     </div>
+        
+
+       
+    
       <section className="album">
          
         {cards.length === 0 && <div>No Cards</div>}
@@ -86,12 +111,18 @@ function Home() {
 
           
 
+         
+
 
             <Card   
               
             children={undefined}
             key={card._id}
             {...card}/>
+
+          
+
+            
 
            <CardActions>
            <Checkbox icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
@@ -103,6 +134,9 @@ function Home() {
             <EditIcon/>
              </IconButton>
              </Link> 
+             
+             <Link to={`/view/${card._id}`}> <Button variant="contained">View Details</Button> </Link>
+
        </CardActions>
           
      </div>
@@ -125,7 +159,7 @@ function Home() {
         </section>
       
       
-      </main>
+      </div>
       
       </div>
       
