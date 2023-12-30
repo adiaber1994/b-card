@@ -6,12 +6,13 @@ function Logout() {
 
   function handleClick() {
     removeToken();
+    
     navigate("/login");
   }
 
   return (
     <button className="nav-link" onClick={handleClick}>
-      LOGOUT
+      LOG OUT
     </button>
   );
 }

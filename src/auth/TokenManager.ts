@@ -1,5 +1,47 @@
-const tokenKey = "token";
+import { useEffect, useState } from "react";
+import { User } from "../interface/InterUser";
+import { CardProps } from "../interface/InterCard";
+import { useNavigate } from "react-router-dom";
 
+const userKey='user';
+const tokenKey = 'token';
+const cardKey='card';
+
+
+export function getItem(): CardProps | undefined {
+  const card = localStorage.getItem(cardKey);
+  if (!card) return undefined; // Return undefined if 'card' is null
+
+  try {
+    const parsedCard = JSON.parse(card);
+    return parsedCard;
+  } catch (error) {
+
+    console.error('Error parsing card JSON:', error);
+    return undefined; 
+  }
+}
+export function setUser(user: User) {
+    if (!user) return;
+    const stringfyUser = JSON.stringify(user);
+    localStorage.setItem(userKey, stringfyUser);
+  }
+  
+
+
+  export function getUser(): User | undefined {
+    const user = localStorage.getItem(userKey);
+    if (!user) return;
+    const parsedUser = JSON.parse(user);
+    return parsedUser;
+  }
+  
+  export function removeUser(navigate: (path: string, options?: { replace?: boolean }) => void) {
+    localStorage.removeItem(userKey);
+    localStorage.removeItem(tokenKey);
+    navigate('/', { replace: true });
+  }
+  
 export function setToken(tokenValue?: string) {
   if (!tokenValue) return;
   localStorage.setItem(tokenKey, tokenValue);

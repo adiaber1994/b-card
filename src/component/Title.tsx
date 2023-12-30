@@ -9,7 +9,7 @@ function Title({ mainText, subText }: Props) {
     <h2 className=" my-3" >
       {mainText }
       <br />
-      {subText && <small className="text-muted">{subText}</small>}
+      {subText && <small>{subText}</small>}
     </h2>
   );
 }

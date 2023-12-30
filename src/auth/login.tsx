@@ -2,16 +2,22 @@ import { useContext, useState } from "react";
 import Title from "../component/Title";
 import { login } from "../services/ApiService";
 import { Link, useNavigate } from "react-router-dom";
-import { setToken } from "./TokenManager";
+import { setToken, setUser } from "./TokenManager";
 import { AppContext } from "../App";
-import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/material";
+import { Box, Button, Container, CssBaseline, TextField } from "@mui/material";
+import { UserContext } from "../context/userContext";
+import { toast } from "react-toastify";
+import Grid from '@mui/material/Grid';
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const context = useContext(AppContext);
+  // const context = useContext(AppContext);
   const [error, setError] = useState("");
+  const { userData, setUserData } = useContext(UserContext)
+
+  
 
   function validate(): boolean {
     if (!email) {
@@ -34,14 +40,35 @@ function Login() {
       email,
       password,
     }).then((user) => {
-      setToken(user.token)
-      if (context) {
-        context.setAdmin(user.isAdmin || false);
-        context.setUserName(user.firstName);
-      }
-      navigate("/")
+      console.log(user)
+
+      
+      // setToken(user.token)
+      if(user.token){
+      setToken(user.token);
+      setUser(user)
+      setUserData(user)
+    }
+      
+      // if (context) {
+      //   context.setAdmin(user.isAdmin || false);
+      //   context.setUserName(user.firstName);
+      //   context.setUserData(user);
+        
+      // }
+      navigate("/");
+      
+      toast.success(`Welcome ${user.firstName}`);
+    })
+   
+    .catch((err) => {
+      toast.error("cannot log in,please check again email/password ");
+
     });
   }
+
+    
+  
 
   return (
 
@@ -98,41 +125,38 @@ function Login() {
               Sign In
             </Button>
 
-          < Grid container spacing={1} justifyContent={"center"}>
-            <Grid >
-
-            <Button
-            variant="outlined" color="error"
-            
-              sx={{ mt: 3, mb: 2, mr:5}}
-            >
-             CANCEL
-            </Button>
-          
-            
-            <Button
-            variant="outlined" color="error"
-            
-              sx={{ mt: 3, mb: 2}}
-            >
-             <i className="bi bi-arrow-repeat"></i>
-            </Button>
+            <Grid container spacing={1}>
+            <Grid item xs>
+              <Button
+                variant="outlined"
+                color="error"
+                sx={{ mt: 3, mb: 2, mr: 5 }}
+              >
+                CANCEL
+              </Button>
             </Grid>
-            
-            <Grid>
-
-            <Link  to="/" >
-                  {"Don't have an account? Sign Up"}
-                </Link>
-                </Grid>
-            
-
+            <Grid item xs>
+              <Button
+                variant="outlined"
+                color="error"
+                sx={{ mt: 3, mb: 2 }}
+              >
+                <i className="bi bi-arrow-repeat"></i>
+              </Button>
             </Grid>
+            <Grid item xs>
+              <Link to="/Signup">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
+           
+            </Box>
 
             
             
           </Box>
-          </Box>
+        
 
          
                 

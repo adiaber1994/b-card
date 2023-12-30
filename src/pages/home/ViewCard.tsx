@@ -3,9 +3,12 @@ import * as React from 'react'
 import { Link, json, useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { getCardsById } from '../../services/ApiService';
-import Card, { CardProps } from "../../component/Card";
+import { CardProps } from "../../interface/InterCard";
 import "./ViewCard.css";
 import { Avatar, Box, Button, Container, Grid, Paper } from '@mui/material';
+import Card from "../../component/Card";
+
+
 
 
 
@@ -70,8 +73,8 @@ function ViewCard() {
          <div className="text-center fs-7"></div>
         <Paper elevation={24}
         sx={{
-            width: 500,
-            height: 500,
+            width: 600,
+            height: 650,
             backgroundColor: 'primary.main',
             textAlign: 'center',
             alignItems: 'center',
@@ -85,13 +88,15 @@ function ViewCard() {
         subText={subtitle}  
        
       />
-      <img src={imageUrl} alt={imageAlt} width={300} height={200} />
+      <img src={imageUrl} alt={imageAlt} width={450} height={250} />
       </div>
-    
+    <div className='m-4'>
         
-      <p>{description}<br />
+      <p>
+        <div style={{fontSize:"20px"}}>{description} </div> <br /> 
       {web} <br />
       {state} {country} ,{city} <br /> {street}, {houseNumber} <br /> {phone} <br />{email} </p>
+      </div>
       
       
 
@@ -101,8 +106,11 @@ function ViewCard() {
         
        
         </Grid>
-
+        <div className='text-center fs-7 mt-4'>
         <Link to={`/`}> <Button variant="contained">Back</Button> </Link>
+        </div>
+        
+
       
 
         

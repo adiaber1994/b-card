@@ -7,6 +7,7 @@ import "../node_modules/bootstrap/dist/css/bootstrap.css";
 import "../node_modules/bootstrap-icons/font/bootstrap-icons.css";
 import "react-toastify/dist/ReactToastify.min.css";
 import { BrowserRouter } from "react-router-dom";
+import { UserProvider } from "./context/userContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -14,7 +15,9 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <BrowserRouter>
+   
       <App />
+      
     </BrowserRouter>
   </React.StrictMode>
 );

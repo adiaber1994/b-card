@@ -1,49 +1,81 @@
-import { useEffect, useState } from "react";
-import AddCard from "./home/AddCard";
-import Card, { CardProps } from "../component/Card";
+import { useContext, useEffect, useState } from "react";
+import { CardProps } from "../interface/InterCard";
 import Title from "../component/Title";
-import { deleteCard, getCards } from "../services/ApiService";
-import { toast } from "react-toastify";
+import Card from "../component/Card";
+import {log} from "console"
+import { getFavorites } from "../services/ApiService";
+import { AppContext } from "../App";
+import { UserContext } from "../context/userContext";
+
+
+interface Props{
+    card: CardProps,
+    onDelete: Function,
+    handleFavoriteClick: Function
+  
+}
+
+
+
+
 
 function MyCards() {
-  // const [cards, setCards] = useState<Array<CardProps>>([]);
+    const [allFavoriteCards, setAllFavoriteCards] = useState<Array<CardProps>>([])
+    const { userData } = useContext(UserContext);
+    const [displayMode, setDisplayMode] = useState('grid');
 
-  // useEffect(() => {
-  //   getCards().then((json) => {
-  //     setCards(json);
-  //   });
-  // }, []);
+       useEffect(() => {
+        getFavorites().then((json) => {
+            setAllFavoriteCards(json)
+        }).catch(err => console.log(err))
+    }, []);
 
-  // function onAdd(card: CardProps) {
-  //   AddCard(card).then((json) => {
-  //     setCards([...cards, json]);
-  //     toast.success('Card has been added successfully');
-  //   });
-  // }
+    return (
+        <>
+            <Title
+                mainText='My Cards'
+                subText='my favorite cards:'
+            />
+           <div className="main">
 
-  // async function onDelete(_id: string) {
-  //   const res = await deleteCard(_id);
-  //   const updated = [...cards].filter((card) => card._id !== _id);
 
-  //   setCards(updated);
-  // }
+            <section className="album">
+   
+             {allFavoriteCards.length === 0 && <div>No Cards</div>}
+             <div className="cards">
+               {allFavoriteCards.map(card => (
 
-  return (
-    <>
-      <Title mainText="My Cards" subText="All my cards" />
+                   <div className="card">
+                     <Card   
+       
+                      key={card._id}
+                      card={card}
+                     {...card}            
+                                />
 
-      {/* <Card
-        title={""}
-        image={""}
-        text={""}
-        phone={""}
-        address={""}
-        cardNumber={0}
-      /> */}
+    
+                    </div>
+                ))
+            }
+            </div>
+            </section>
+            </div>
 
-      {/* <AddCard onAdd={onAdd} /> */}
-    </>
-  );
+            
+            {allFavoriteCards.length === 0 && (
+                <div className='text-center m-4'>No Favorite Cards to show</div>
+            )}
+            <div className={displayMode}>
+                {allFavoriteCards.map((card) => (
+                    <Card
+                        key={card._id}
+                        card={card}
+                    />
+                ))}
+            </div>
+            
+        </>
+    );
 }
 
 export default MyCards;

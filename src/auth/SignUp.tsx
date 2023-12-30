@@ -7,15 +7,6 @@ import { signup } from "../services/ApiService";
 import { Box, Button, Checkbox, Container, CssBaseline, FormControlLabel, Grid, Link, TextField, ThemeProvider, createTheme } from "@mui/material";
 
 
-export interface User {
-  _id?: string;
-  firstName?: string;
-  lastName?: string;
-  email: string;
-  password: string;
-  isAdmin?: Boolean;
-  token?: string;
-}
 
 
 function Signup() {
@@ -25,6 +16,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [error, setError] = useState("");
+  const [isAdmin, setIsAdmin] = useState(false) 
 
   function validate(): boolean {
     if (!firstName || firstName.length < 2) {
@@ -46,7 +38,7 @@ function Signup() {
     return true;
   }
 
-  function handleSubmit() {
+  function handleClick() {
     if (!validate()) {
       return;
     }
@@ -56,8 +48,11 @@ function Signup() {
       lastName,
       email,
       password,
+     
+  
     })
     .then(( user) => {
+      console.log(user)
     
       navigate('/login');
     });
@@ -152,7 +147,7 @@ function Signup() {
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
-              onClick={handleSubmit}
+              onClick={handleClick}
             >
               Sign Up
             </Button>

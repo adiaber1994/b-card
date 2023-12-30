@@ -10,7 +10,8 @@ function RouteGuard({ children }: Props) {
   return verifyToken() ? (
     <>{children}</>
   ) : (
-    <Navigate to="/login" replace={true} />
+    <Navigate to="/login"
+    replace ={true} />
   );
 }
 

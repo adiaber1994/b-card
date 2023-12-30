@@ -55,7 +55,12 @@ const cardSchema = new mongoose.Schema({
     type: String,
     require: true,
   },
-});
+  favorites:
+  [{
+    type:mongoose.Schema.Types.ObjectId,
+    ref: "User"}] 
+  });
+
 
 const Card = mongoose.model("card", cardSchema);
 

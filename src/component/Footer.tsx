@@ -6,6 +6,13 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { Copyright } from "@mui/icons-material";
+import FacebookButton from "./SocialsButtons/FacebookButton";
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import InstegramButton from "./SocialsButtons/InstegramButton";
+import { Grid } from "@mui/material";
+import PintrestButton from "./SocialsButtons/PintrestButton";
+import PinterestIcon from '@mui/icons-material/Pinterest';
 
 
 function Fotter() {
@@ -46,9 +53,22 @@ function Copyright() {
                 : theme.palette.grey[800],
           }}
         >
-          <Container maxWidth="sm">
-            <Typography variant="body1">
-              My sticky footer can be found here.
+          <Container fixed>
+            <Typography>
+              <div className="">
+                <div className="">
+                  <h4>
+                    Spread The News
+                  </h4>
+                  <Grid  container direction="row" justifyContent="center" alignItems="center">
+                  <FacebookButton icon={< FacebookIcon></FacebookIcon>}/> 
+                  <InstegramButton icon={<InstagramIcon></InstagramIcon>}/> 
+                  <PintrestButton icon={<PinterestIcon></PinterestIcon>}/> 
+                  </Grid>
+                </div>
+                
+
+              </div>
             </Typography>
             <Copyright />
           </Container>

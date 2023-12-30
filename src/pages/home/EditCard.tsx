@@ -24,10 +24,6 @@ function EditCard() {
     const [street, setStreet] = useState('');
     const [houseNumber, setHouseNumber] = useState('');
 
-
-    
-    
-
     
     useEffect(() => {
 

@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
     default: false,
    
   },
+  favorites:
+[{
+  type:mongoose.Schema.Types.ObjectId,
+  ref: "Card"}] 
 });
 
 const User = mongoose.model("user", userSchema);

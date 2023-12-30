@@ -11,7 +11,7 @@ function AdminGuard({children}: Props) {
     const context = useContext(AppContext);
 
     function isNotAdmin(): boolean {
-        // const admin = localStorage.getItem('admin');
+       
         return !context?.admin || false;
         
     }

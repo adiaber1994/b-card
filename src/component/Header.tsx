@@ -8,11 +8,18 @@ import Diversity1Icon from '@mui/icons-material/Diversity1';
 import React from "react";
 import MenuIcon from '@mui/icons-material/Menu'
 import { createTheme } from '@mui/material/styles';
+import Brightness6Icon from '@mui/icons-material/Brightness6';
 
-function Header() {
-  const [search, setSearch] = useState("");
+
+interface HeaderProps {
+  onClick: () => void;
+  mode: 'light' | 'dark';
+}
+
+const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
+
   const context = useContext(AppContext);
-  const[mode, setMode] = useState<'light' | 'dark'>('light')
+  // const[mode, setMode] = useState<'light' | 'dark'>('light')
   
 
   const pages = ['About', '', 'Blog'];
@@ -37,29 +44,22 @@ function Header() {
       setAnchorElUser(null);
     };
 
+   
+  
 
 
 
-//  const theme =useMemo(
-//     () =>
-//       createTheme({
-//         palette: {
-//           mode,
-//         },
-//       }),
-//     [mode],
-//   );
+
+ 
 
   
 
-  // function handleClick() {
-  //   const toggleMode = mode === 'dark' ? 'light' : 'dark';
-  //   setMode(toggleMode)
-  // }
+  
+
 
   return (
 
-  
+  <>
 
 
     <AppBar position="static">
@@ -129,15 +129,51 @@ function Header() {
               </NavLink>
             </li>
 
+            {verifyToken() && (
+
             < li className="nav-item">
                 <NavLink
-                to="/fav Cards"
+                to="/my cards"
                 className="nav-link active"
                 aria-current="page"
               >
-                FAV CARDS
+                MY CARDS
+              </NavLink>
+            </li>)}
+
+            {context?.admin &&
+
+              < li className="nav-item">
+                 <NavLink
+                 to="/add"
+                  className="nav-link active"
+                 aria-current="page"
+                                    >
+                             ADD CARD
+                          </NavLink>
+                      </li>}
+                      <li className="nav-item">
+                <NavLink to="/Signup" className="nav-link">
+                 SIGN UP
+                </NavLink>
+                </li>
+            
+           {!verifyToken() &&
+            <li className="nav-item">
+              <NavLink to="/login" className="nav-link">
+               LOGIN
               </NavLink>
             </li>
+            }
+
+            {verifyToken() &&
+
+            <li className="nav-item">
+            
+              <Logout/>
+            </li>
+             }
+                   
 
 
 
@@ -179,62 +215,71 @@ function Header() {
                 ABOUT
               </NavLink>
             </ul>
-            {/* {!verifyToken() && ( */}
-              <ul>
-                <NavLink
-                  to="/fav Cards"
-                  className="nav-link active"
-                  aria-current="page"
-                >
-                  FAV CARDS
-                </NavLink>
-              </ul>
-            {/* )} */}
-            {/* {!verifyToken() &&  */}
-
-            <ul className="nav-item">
+            {verifyToken() && (
+              <ul className="nav-item">
               <NavLink to="/my cards" className="nav-link">
                 MY CARDS
               </NavLink>
             </ul>
-             {/* } */}
+            )}
+          
+          {context?.admin &&
             <ul className="nav-item">
               <NavLink to="/add" className="nav-link">
                 ADD CARD
               </NavLink>
             </ul>
-           {/* {context?.admin && */}
+          }
+           {context?.admin &&
             <ul className="nav-item">
               <NavLink to="/sandBox" className="nav-link">
                 SANDBOX
               </NavLink>
             </ul>
-            {/* } */}
+            }
             </Box>
-
-            <Box sx={{ flexGrow:0, display: { xs: 'none', md: 'flex' }, mt: 2} }>
-            <ul className="nav-item">
-              <NavLink to="/Signup" className="nav-link">
-               SIGN IN
-              </NavLink>
-            </ul>
+            <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, mt: 2 }}>
+                <ul className="nav-item">
+                <IconButton
+                 onClick={onClick}
+                  
+                 >
+                <Brightness6Icon   />
+                <Typography>
+                  {mode === 'dark' ? '' : ''}
+                </Typography>
+              </IconButton>
+              </ul>
+                 
+                <ul className="nav-item">
+                <NavLink to="/Signup" className="nav-link">
+                 SIGN UP
+                </NavLink>
+                </ul>
+            
+           {!verifyToken() &&
             <ul className="nav-item">
               <NavLink to="/login" className="nav-link">
                LOGIN
               </NavLink>
             </ul>
+            }
+
+            {verifyToken() &&
+
             <ul className="nav-item">
             
               <Logout/>
             </ul>
-            
+             }
 
-            </Box>
+        </Box>
             </Toolbar>
             </Container>
             
         </AppBar>
-       
+        </>
+        
        
 
     

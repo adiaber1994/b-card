@@ -29,6 +29,7 @@
 .cards {
   display: flex;
   flex-wrap: wrap;
+  
  
   
 
@@ -37,11 +38,20 @@
 .card {
   width: 350px; /* רוחב קבוע */
   height: 300px; /* גובה קבוע */
-  border: 1px solid #ccc;
+  border: 1px solid #2d2d2d;
   padding: 10px;
   text-align: center;
   margin: 10px; /* מרווח בין הכרטיסים */
   box-sizing: border-box; /* תפוח תיבת הכרטיס לקווים */
+  box-shadow: 10px 10px 5px rgba(0, 0, 0, 0.19);
+  transition: 1s;
+
+}
+
+.card:hover {
+
+  width: 360px;
+  
 }
 
 @media (max-width: 768px) {
