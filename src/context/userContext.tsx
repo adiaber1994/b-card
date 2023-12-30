@@ -16,6 +16,7 @@ type UserContextType = {
 };
 
 export const UserContext = createContext<UserContextType>({
+
   userData: null,
   favorites: [],
   setFavorites: () => {},

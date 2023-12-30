@@ -28,16 +28,10 @@ import { UserProvider } from './context/userContext';
 
 
 interface Context {
-  setUserData: Function;
+ 
   admin: Boolean;
   setAdmin: Function;
-  toggleFavorite: (id: any) => Promise<void>
-  isFavorite: (id:any) => boolean
-  userName: string
-  setUserName: Function
-  userData: User | undefined;
-  favorites: CardProps[];
-  setFavorites: React.Dispatch<React.SetStateAction<CardProps[]>>;
+ 
 }
 export const AppContext = createContext <Context | null>(null);
 
@@ -134,7 +128,7 @@ function handleClick() {
      
       <CssBaseline/>
       <UserProvider>
-    {/* <AppContext.Provider value={{favorites,setFavorites,admin,setAdmin,userName,isFavorite,toggleFavorite,setUserName,userData,setUserData}}> */}
+    <AppContext.Provider value={{admin,setAdmin}}>
     <Header onClick={handleClick} mode={mode} />
       <ToastContainer position="top-right" theme="light" />
 
@@ -161,11 +155,12 @@ function handleClick() {
       
 
       <Footer/>
+      </AppContext.Provider>
 
       </UserProvider>
 
       
-      {/* </AppContext.Provider> */}
+      
       </ThemeProvider>
      
     

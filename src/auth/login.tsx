@@ -13,9 +13,11 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  // const context = useContext(AppContext);
+  const context = useContext(AppContext);
   const [error, setError] = useState("");
   const { userData, setUserData } = useContext(UserContext)
+  
+
 
   
 
@@ -44,11 +46,13 @@ function Login() {
 
       
       // setToken(user.token)
-      if(user.token){
+      if(user.token,context){
       setToken(user.token);
       setUser(user)
       setUserData(user)
-    }
+      context.setAdmin(user.isAdmin || false);}
+      
+    
       
       // if (context) {
       //   context.setAdmin(user.isAdmin || false);
@@ -58,7 +62,7 @@ function Login() {
       // }
       navigate("/");
       
-      toast.success(`Welcome ${user.firstName}`);
+      toast.success(`Welcome ${user.firstName}`)
     })
    
     .catch((err) => {

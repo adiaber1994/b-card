@@ -17,6 +17,7 @@ import { Favorite, FavoriteBorder} from "@mui/icons-material";
 import { CardProps } from "../../interface/InterCard";
 import { toast } from "react-toastify";
 import  Card from "../../component/Card";
+import AdminGuard from "../../auth/AdminGuard";
 
 function Home()   {
   const [cards, setCards] = useState<Array<CardProps>>([]);
@@ -31,10 +32,14 @@ function Home()   {
   
 
   useEffect(() => {
+
     getCards().then((json) => {
       
       setCards(json);
       setOrigData(json);
+      
+     
+    
     });
   }, []);
 
@@ -62,8 +67,7 @@ function Home()   {
     
     <>
 
-    {context?.userName &&
-    <div className="p-2">Hello {context.userName}</div>}
+    
     <div className="home">
 
       <Title 
