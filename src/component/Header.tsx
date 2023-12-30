@@ -3,11 +3,11 @@ import { NavLink } from "react-router-dom";
 import Logout from "../auth/Logout";
 import { verifyToken } from "../auth/TokenManager";
 import { AppContext } from "../App";
-import { AppBar, Avatar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
+import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import React from "react";
 import MenuIcon from '@mui/icons-material/Menu'
-import { createTheme } from '@mui/material/styles';
+
 import Brightness6Icon from '@mui/icons-material/Brightness6';
 
 
@@ -19,44 +19,21 @@ interface HeaderProps {
 const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
 
   const context = useContext(AppContext);
-  // const[mode, setMode] = useState<'light' | 'dark'>('light')
-  
 
-  const pages = ['About', '', 'Blog'];
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-  
-  
+ 
     const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-    const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+   
   
     const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElNav(event.currentTarget);
     };
-    const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElUser(event.currentTarget);
-    };
+   
   
     const handleCloseNavMenu = () => {
       setAnchorElNav(null);
     };
   
-    const handleCloseUserMenu = () => {
-      setAnchorElUser(null);
-    };
-
-   
-  
-
-
-
-
  
-
-  
-
-  
-
-
   return (
 
   <>
