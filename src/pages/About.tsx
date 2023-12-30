@@ -1,4 +1,7 @@
+import { Button, Grid, Paper } from "@mui/material";
 import Title from "../component/Title";
+import { Box, Container } from "@mui/system";
+import { Link, json, useNavigate, useParams } from 'react-router-dom';
 
 function About() {
   return (
@@ -6,24 +9,43 @@ function About() {
       <div className="text-center">
         <Title mainText="About Us" />
       </div>
-      <div className="text-center fs-3">
+
+      <Container fixed>
+        <Grid container
+         justifyContent="center"
+         alignItems="center"
+         marginTop={5}>
+      <Paper elevation={24}
+        sx={{
+            width: 900,
+            height: 400,
+            backgroundColor: 'primary.main',
+            textAlign: 'center',
+            alignItems: 'center',
+            
+        }}>
+      <div className="text-center fs-4">
         <p>
           getting married? Don't even know where to start planning the event?
-          Are you a hall owner? Do you own a dress design business?
         </p>
         <br />
         <p>
-          We, the BCard company, will do the mediation for you. BCard has come
-          to sort things out for you <br /> Here you can find the most
-          businesses dealing with design, clothing and places for your event
-          Everything in one place
+          uWe, the BCard Wedding company, will sort things out for you:
+We have collected for you the best businesses that provide service to you, the bride and groom. <br />
+Here you can find a collection of local places. 
         </p>
         <br />
         <p>
-          If you are a business owner for an event, come open a business card
-          with us and increase your exposure for the business
+        you can decide and mark the places you liked the most in order to organize and help you choose the places and business owners that best suit you for the big event
         </p>
       </div>
+      </Paper>
+      </Grid>
+      <div className='text-center fs-7 mt-4'>
+        <Link to={`/`}> <Button variant="contained">Back</Button> </Link>
+        </div>
+      
+      </Container>
     </>
   );
 }

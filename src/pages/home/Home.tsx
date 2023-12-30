@@ -117,13 +117,14 @@ function Home()   {
         ))
         }
         </div>
+        {context?.admin &&
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
         <Link  to="add"> 
       <Fab color="primary" aria-label="add">
         <AddIcon />
       </Fab>
       </Link>
-      </Box>
+      </Box>}
          
         
         </Container>

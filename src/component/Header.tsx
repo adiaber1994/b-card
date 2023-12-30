@@ -175,15 +175,6 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
              }
                    
 
-
-
-
-              {/* {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-        
-                  <Typography textAlign="center">{page}</Typography>
-                </MenuItem>
-              ))} */}
             </Menu>
           </Box>
           <Diversity1Icon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />

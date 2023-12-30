@@ -95,6 +95,7 @@ function App() {
       mode,
       ...(mode === "light"
         ? {
+          
             primary: {
               light: "#d7a8df",
               main: "#EFC8F1",
@@ -103,7 +104,7 @@ function App() {
             },
             secondary: {
               light: "#ff7961",
-              main: "#E475FA",
+              main: "#9f51af",
               dark: "#ba000d",
               contrastText: "#000",
             },

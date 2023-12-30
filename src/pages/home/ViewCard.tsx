@@ -70,7 +70,7 @@ function ViewCard() {
          justifyContent="center"
          alignItems="center"
          marginTop={10}>
-         <div className="text-center fs-7"></div>
+        
         <Paper elevation={24}
         sx={{
             width: 600,
