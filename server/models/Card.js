@@ -4,61 +4,65 @@ const mongoose = require("mongoose");
 const cardSchema = new mongoose.Schema({
   title: {
     type: String,
-    require: true,
+    required: true,
   },
   subtitle: {
     type: String,
-    require: true,
+    required: true,
   },
 
   description: {
     type: String,
-    require: true,
+    required:  true,
   },
   imageUrl: {
     type: String,
-    require: true,
+    required: true,
   },
   imageAlt: {
     type: String,
-    require: true,
+    required: true,
   },
   phone: {
     type: String,
-    require: true,
+    required: true,
   },
   email: {
     type: String,
-    require: true,
+    required: true,
   },
   web: {
     type: String,
-    require: false,
+    required: false,
   },
   state: {
     type: String,
-    require: false,
+    required: false,
   },
   country: {
     type: String,
-    require: true,
+    required: true,
   },
   city: {
     type: String,
-    require: true,
+    required: true,
   },
   street: {
     type: String,
-    require: true,
+    required: true,
   },
   houseNumber: {
     type: String,
-    require: true,
+    required: true,
   },
-  favorites:
-  [{
-    type:mongoose.Schema.Types.ObjectId,
-    ref: "User"}] 
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    favorites: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+        },
+    ],
+
   });
 
 

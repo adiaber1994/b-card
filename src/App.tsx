@@ -22,7 +22,7 @@ import { CardProps } from "./interface/InterCard";
 import { User } from "./interface/InterUser";
 import { favorite, fetchUserData } from "./services/ApiService";
 import { getToken } from "./auth/TokenManager";
-import { UserProvider } from './context/userContext';
+import {AuthRoute} from "./auth/AuthRoute"
 
 
 
@@ -33,7 +33,7 @@ interface Context {
   setAdmin: Function;
  
 }
-export const AppContext = createContext <Context | null>(null);
+
 
 function App() {
   const [mode, setMode] = useState<'light' | 'dark'>('light');
@@ -62,28 +62,6 @@ function App() {
   // }, []);
 
 
-
-
-  const isFavorite = (id:any) => {
-    if(!id) return false
-    if(!userData || !userData.favorites) return false
-    return  userData.favorites.findIndex(fav => fav === id) != -1
-  }
-  const toggleFavorite = async(id: any) => {
- 
-    // client
-    const existsIdx = userData?.favorites?.findIndex(fav => fav === id)
-    if(existsIdx && existsIdx === -1) {
-      setUserData({...userData, favorites: [...userData!.favorites!, id]} as any)
-    } else if(existsIdx !== -1) {
-      setUserData({...userData, favorites: userData!.favorites!.filter(fav => fav!==id)} as any)
-      
-
-    }
-      // server 
-      await favorite(id)
-      localStorage.setItem('userData', JSON.stringify(userData));
-  }
   const theme = createTheme({
     palette: {
       mode,
@@ -127,8 +105,7 @@ function handleClick() {
       <ThemeProvider theme={mode === 'dark' ? darkTheme : theme}>
      
       <CssBaseline/>
-      <UserProvider>
-    <AppContext.Provider value={{admin,setAdmin}}>
+    
     <Header onClick={handleClick} mode={mode} />
       <ToastContainer position="top-right" theme="light" />
 
@@ -139,12 +116,7 @@ function handleClick() {
         <Route path="edit/:id" element={<RouteGuard><EditCard/></RouteGuard>}/>
         <Route path="view/:id" element={<RouteGuard><ViewCard/></RouteGuard>}/>
         <Route
-          path="my cards"
-          element={
-            <RouteGuard>
-              <MyCards />
-            </RouteGuard>
-          }
+          path="my cards" element={ <MyCards />}
         />
         <Route path="sandBox" element={<AdminGuard><SandBox /></AdminGuard>}/>
         <Route path="Signup" element={<Signup />} />
@@ -155,11 +127,6 @@ function handleClick() {
       
 
       <Footer/>
-      </AppContext.Provider>
-
-      </UserProvider>
-
-      
       
       </ThemeProvider>
      

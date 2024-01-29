@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { User } from "../interface/InterUser";
 import { CardProps } from "../interface/InterCard";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const userKey='user';
 const tokenKey = 'token';
@@ -36,10 +36,12 @@ export function setUser(user: User) {
     return parsedUser;
   }
   
-  export function removeUser(navigate: (path: string, options?: { replace?: boolean }) => void) {
+  export function removeUser() {
+  
     localStorage.removeItem(userKey);
     localStorage.removeItem(tokenKey);
-    navigate('/', { replace: true });
+    window.location.reload();
+  
   }
   
 export function setToken(tokenValue?: string) {

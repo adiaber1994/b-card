@@ -108,8 +108,8 @@ module.exports = {
         title: joi.string().required(),
         subtitle: joi.string().optional().allow(''),
         description: joi.string().min(1).optional().allow(''),
-        ImageUrl: joi.string().optional().allow(''),
-        ImageAlt: joi.string().optional().allow(''),
+        imageUrl: joi.string().optional().allow(''),
+        imageAlt: joi.string().optional().allow(''),
         phone: joi.string().optional().allow(''),
         email: joi.string().optional().allow(''),
         web: joi.string(),
@@ -140,6 +140,7 @@ module.exports = {
         value
         
       );
+    
 
      
 
@@ -148,33 +149,98 @@ module.exports = {
       
       const updated = await Card.findOne({ _id: req.params.id });
             res.json(updated);
-        }
-        catch (err) {
+    }catch (err) {
             console.log(err);
             res.status(400).json({ error: "fail to update data" });
-        }
-    },
+    }
 
-    getUserFavoriteCards: async function (req, res, next){
-    try {
-      const user = await User.findById(req.user._id).populate(
-          'favorites'
-      );
-      if (!user) {
-          return res.status(404).json({ message: 'User not found' });
+  },
+  
+ 
+  getUserFavoriteCards: async function (req, res, next) {
+      try {
+        if (!req.user || !req.user.userId|| !req.user.email) {
+          console.error('User not authenticated or missing user ID');
+          return res.status(401).json({ message: "User not authenticated" });
       }
+        console.log('User ID:', req.user._id);
+          const user = await User.findById(req.user._id).populate(
+              'favorites'
+          );
+          console.log('User:', user);
+          if (!user) {
+              return res.status(404).json({ message: 'User not found' });
+          }
 
-      const favoriteCards = user.favorites;
+          const favoriteCards = user.favorites;
 
-      return res.status(200).json(favoriteCards);
-  } catch (err) {
-      console.log(err);
-      res.status(500).json({
-          status: 'fail',
-          message: err.message,
-      });
+          return res.status(200).json(favoriteCards);
+        } catch (err) {
+          console.log(err);
+          res.status(500).json({
+              status: 'fail',
+              message: err.message,
+          });
+        }
+      },
+      setFavorite: async function (req, res, next) {
+        console.log('Token received with request:', req.header('x-auth-token'));
+        // אימות קיום משתמש
+        if (!req.user || !req.user.userId) {
+            console.error('User not authenticated or missing user ID');
+            return res.status(401).json({ message: "not working" });
+        }
+    
+        const cardId = req.params.id;
+        const userId = req.user.userId;
+    
+        console.log("CARD>>>", cardId);
+        console.log("USERID>>>", userId);
+        let status = false;
+    
+        try {
+            // אימות קיום הכרטיס
+            const card = await Card.findById(cardId);
+            if (!card) {
+                return res.status(404).json({ message: 'Card not found' });
+            }
+            const user = await User.findOne({ email: req.user.email});
+            if (!Array.isArray(user.favorites)) {
+              user.favorites = [];
+            }
+    
+            const userIndex = user.favorites.indexOf(cardId);
+            const cardIndex = card.favorites.indexOf(userId);
+    
+            if (userIndex === -1) {
+                user.favorites.push(cardId);
+                status = true;
+            } else {
+                user.favorites.splice(userIndex, 1);
+                status = false;
+            }
+            if (cardIndex === -1) {
+              card.favorites.push(userId);
+              status = true;
+          } else {
+              card.favorites.splice(cardIndex, 1);
+              status = false;
+          }
+    
+            await user.save();
+            await card.save();
+    
+            const { title } = card;
+            return res.status(200).json({ title, status });
+        } catch (err) {
+            console.log(err);
+            res.status(500).json({
+                status: 'fail',
+                message: err.message,
+            });
+        }
+    }
   }
-},
 //  setFavorite : async function (req, res, next) {
 //   try {
 //     const cardId = req.params.id;
@@ -195,52 +261,51 @@ module.exports = {
 // }
 
 
-setFavorite: async function (req, res, next) {
-  const cardId = req.params.id;
-  const userId = req.user ? req.user._id : null;
+// setFavorite: async function (req, res, next) {
+//   const cardId = req.params.id;
+//   const userId = req.user ? req.user._id : null;
 
-  if (!userId) {
-    return res.status(401).json({ message: 'Unauthorized' });
-  }
-  console.log("CARD>>>", cardId);
-  console.log("USERID>>>", userId);
-  let status = false;
-  try {
-      const card = await Card.findById(cardId);
-      const user = await User.findById(userId);
-      if (!card) {
-          return res.status(404).json({ message: 'Card not found' });
-      }
+//   if (!userId) {
+//     return res.status(401).json({ message: 'Unauthorized' });
+//   }
+//   console.log("CARD>>>", cardId);
+//   console.log("USERID>>>", userId);
+//   let status = false;
+//   try {
+//       const card = await Card.findById(cardId);
+//       const user = await User.findById(userId);
+//       if (!card) {
+//           return res.status(404).json({ message: 'Card not found' });
+//       }
 
-      const cardIndex = card.favorites.indexOf(userId);
-      const userIndex = user.favorites.indexOf(cardId);
+//       const cardIndex = card.favorites.indexOf(userId);
+//       const userIndex = user.favorites.indexOf(cardId);
 
-      if (cardIndex === -1) {
-          card.favorites.push(userId);
-          status = true;
-      } else {
-          card.favorites.splice(cardIndex, 1);
-          status = false;
-      }
+//       if (cardIndex === -1) {
+//           card.favorites.push(userId);
+//           status = true;
+//       } else {
+//           card.favorites.splice(cardIndex, 1);
+//           status = false;
+//       }
 
-      if (userIndex === -1) {
-          user.favorites.push(cardId);
-      } else {
-          user.favorites.splice(userIndex, 1);
-      }
+//       if (userIndex === -1) {
+//           user.favorites.push(cardId);
+//       } else {
+//           user.favorites.splice(userIndex, 1);
+//       }
 
-      await card.save();
-      await user.save();
-      const { title } = card;
+//       await card.save();
+//       await user.save();
+//       const { title } = card;
 
-      return res.status(200).json({ title, status });
-  } catch (err) {
-      console.log(err);
-      res.status(500).json({
-          status: 'fail',
-          message: err.message,
-      });
-  }
-},
+//       return res.status(200).json({ title, status });
+//   } catch (err) {
+//       console.log(err);
+//       res.status(500).json({
+//           status: 'fail',
+//           message: err.message,
+//       });
+//   }
+// },
 
-}

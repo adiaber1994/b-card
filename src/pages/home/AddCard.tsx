@@ -1,7 +1,7 @@
 import { useState } from "react";
 import FormLayout from "../../component/FormLayout";
 import Title from "../../component/Title";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addCard } from "../../services/ApiService";
 import { useInputText } from "../../hooks/useInputText";
 import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/material";
@@ -263,6 +263,9 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
             >
              Add
             </Button>
+            <div className='text-center fs-7 mt-4'>
+        <Link to={`/`}> <Button variant="contained">Back</Button> </Link>
+        </div>
             </Box>
     
     

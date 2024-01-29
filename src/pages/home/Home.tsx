@@ -4,9 +4,6 @@ import "./Home.css";
 import "../../component/Header";
 import {  deleteCard, favorite, getCards } from "../../services/ApiService";
 import { Link } from "react-router-dom";
-
-import { AppContext } from "../../App";
-
 import { CardActionArea, CardMedia, CardContent, Typography, Box, createTheme, ThemeProvider, CssBaseline, Container, Grid, CardActions, Checkbox, IconButton, Fab, Button, dividerClasses } from "@mui/material";
 import './Home.css';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -18,12 +15,14 @@ import { CardProps } from "../../interface/InterCard";
 import { toast } from "react-toastify";
 import  Card from "../../component/Card";
 import AdminGuard from "../../auth/AdminGuard";
+import { UserContext } from "../../context/userContext";
 
 function Home()   {
   const [cards, setCards] = useState<Array<CardProps>>([]);
-  const context = useContext(AppContext)
+  // const context = useContext(AppContext)
   const [search, setSearch] = useState('');
   const [origData, setOrigData] = useState<Array<CardProps>>([]);
+  const {userData, favorites, setFavorites} = useContext(UserContext)
  
 
   
@@ -121,14 +120,14 @@ function Home()   {
         ))
         }
         </div>
-        {context?.admin &&
+        {userData?.isAdmin && (
         <Box sx={{ '& > :not(style)': { m: 1 } }}>
         <Link  to="add"> 
       <Fab color="primary" aria-label="add">
         <AddIcon />
       </Fab>
       </Link>
-      </Box>}
+      </Box>)}
          
         
         </Container>

@@ -1,81 +1,51 @@
-import { useContext, useEffect, useState } from "react";
-import { CardProps } from "../interface/InterCard";
-import Title from "../component/Title";
-import Card from "../component/Card";
-import {log} from "console"
-import { getFavorites } from "../services/ApiService";
-import { AppContext } from "../App";
-import { UserContext } from "../context/userContext";
+import React, { useContext, useEffect } from 'react';
 
-
-interface Props{
-    card: CardProps,
-    onDelete: Function,
-    handleFavoriteClick: Function
-  
-}
-
-
-
+import { getFavorites } from '../services/ApiService';
+import { UserContext } from '../context/userContext';
+import Card from '../component/Card';
+import { Container } from '@mui/material';
 
 
 function MyCards() {
-    const [allFavoriteCards, setAllFavoriteCards] = useState<Array<CardProps>>([])
-    const { userData } = useContext(UserContext);
-    const [displayMode, setDisplayMode] = useState('grid');
+  const { favorites, setFavorites } = useContext(UserContext);
 
-       useEffect(() => {
-        getFavorites().then((json) => {
-            setAllFavoriteCards(json)
-        }).catch(err => console.log(err))
-    }, []);
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const favoritesData = await getFavorites();
+        setFavorites(favoritesData);
+      } catch (error) {
+        console.error('Error fetching favorites:', error);
+      }
+    };
 
-    return (
-        <>
-            <Title
-                mainText='My Cards'
-                subText='my favorite cards:'
+    fetchFavorites();
+  }, [setFavorites]);
+
+  return (
+    <>
+       <div>
+          <h1>My Favorite Cards</h1>
+           
+           {favorites.length === 0 && <div>No Cards</div>}
+           <div className="cards">
+           {favorites.map((favorite) => (
+            <div className='cards' key={favorite._id}>
+             <Card   
+              
+              
+              key={favorite._id}
+              card={favorite}
+              {...favorite}            
             />
-           <div className="main">
+        </div>
+      ))}
+      </div>
+      
+      </div>
 
-
-            <section className="album">
-   
-             {allFavoriteCards.length === 0 && <div>No Cards</div>}
-             <div className="cards">
-               {allFavoriteCards.map(card => (
-
-                   <div className="card">
-                     <Card   
-       
-                      key={card._id}
-                      card={card}
-                     {...card}            
-                                />
-
-    
-                    </div>
-                ))
-            }
-            </div>
-            </section>
-            </div>
-
-            
-            {allFavoriteCards.length === 0 && (
-                <div className='text-center m-4'>No Favorite Cards to show</div>
-            )}
-            <div className={displayMode}>
-                {allFavoriteCards.map((card) => (
-                    <Card
-                        key={card._id}
-                        card={card}
-                    />
-                ))}
-            </div>
-            
-        </>
-    );
+    </>
+  );
 }
 
 export default MyCards;

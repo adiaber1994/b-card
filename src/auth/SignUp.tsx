@@ -15,7 +15,6 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const [error, setError] = useState("");
   const [isAdmin, setIsAdmin] = useState(false) 
 
   function validate(): boolean {
@@ -23,12 +22,17 @@ function Signup() {
       toast.error("firstname is reqired");
       return false;
     }
-
-    if (!email) {
-      // also check that email is required with regex
-      toast.error("email is required.");
+    if (!lastName) {
+      toast.error("last name is required.");
       return false;
     }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!email || !emailRegex.test(email)) {
+      toast.error("Email is required and must be valid.");
+      return false;
+    }
+
 
     if (!password || password.length < 8) {
       toast.error("Password must contain at least 8 characters.");
@@ -48,6 +52,7 @@ function Signup() {
       lastName,
       email,
       password,
+      isAdmin,
      
   
     })

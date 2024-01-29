@@ -3,6 +3,7 @@ import Title from "../../component/Title";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { editCard, getCardsById } from "../../services/ApiService";
+import { toast } from "react-toastify";
 
 
 
@@ -30,7 +31,7 @@ function EditCard() {
         if (!id) return;
 
      getCardsById(id)
-        .then(json => {
+        .then((json) => {
             setTitle(json.title);
            setSubtitle(json.subtitle);
            setDescription(json.description);
@@ -60,7 +61,7 @@ function EditCard() {
         return true
     }
 
-    function handleClick() {
+    async function handleClick() {
 
         if (!validate()) {
             return
@@ -69,7 +70,7 @@ function EditCard() {
 
         if (!id) return;
 
-        editCard(id, {
+         editCard(id, {
             title,
             subtitle,
             description,
@@ -86,12 +87,14 @@ function EditCard() {
            
             
         }) 
-        .then(json => {
+        .then((json) => {
             console.log(json)
-            navigate('/')
-
-        })
-    
+            navigate("/");
+            toast.success(` ${title} card has been successfully updated!`);
+          })
+          .catch((error) => {
+            toast.error(error);
+          });
         
     }
 

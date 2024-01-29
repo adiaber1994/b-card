@@ -3,7 +3,6 @@ import Title from "../component/Title";
 import { login } from "../services/ApiService";
 import { Link, useNavigate } from "react-router-dom";
 import { setToken, setUser } from "./TokenManager";
-import { AppContext } from "../App";
 import { Box, Button, Container, CssBaseline, TextField } from "@mui/material";
 import { UserContext } from "../context/userContext";
 import { toast } from "react-toastify";
@@ -13,7 +12,7 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const context = useContext(AppContext);
+  // const context = useContext(AppContext);
   const [error, setError] = useState("");
   const { userData, setUserData } = useContext(UserContext)
   
@@ -46,20 +45,11 @@ function Login() {
 
       
       // setToken(user.token)
-      if(user.token,context){
+      if(user.token){
       setToken(user.token);
       setUser(user)
       setUserData(user)
-      context.setAdmin(user.isAdmin || false);}
-      
-    
-      
-      // if (context) {
-      //   context.setAdmin(user.isAdmin || false);
-      //   context.setUserName(user.firstName);
-      //   context.setUserData(user);
-        
-      // }
+     }
       navigate("/");
       
       toast.success(`Welcome ${user.firstName}`)

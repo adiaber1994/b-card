@@ -45,17 +45,29 @@ export async function deleteCard(_id: string): Promise<CardProps> {
   return res.json();
 }
 
-export async function editCard(_id: string, card: CardProps): Promise<CardProps> {
-  const res = await fetch(`${cardsUrl}${_id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type":"application/json",
-      "x-auth-token": getToken()
-    },
-    body: JSON.stringify(card)
-  });
-  return res.json();
+export async function editCard(_id: string, card: CardProps): Promise<CardProps | { error: string }> {
+  try {
+    const res = await fetch(`${cardsUrl}${_id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        "x-auth-token": getToken(),
+      },
+      body: JSON.stringify(card),
+    });
+
+    if (!res.ok) {
+      throw new Error("Network response was not ok");
+    }
+
+    return res.json();
+  } catch (error) {
+    console.error("Error editing card:", error);
+    return { error: "An error occurred while editing the card." } as { error: string };
+  }
 }
+
+
 export async function getUserById(_id: string): Promise<User> {
   const res = await fetch(`${usersUrl}me`,{
       headers: {
@@ -128,26 +140,45 @@ export async function fetchUserData(): Promise<User> {
 }
 
 export async function favorite(
-  cardId: string
+cardId: string
 ): Promise<any> {
 
+  console.log('Token sent with request:', getToken());
+
+  const requestBody = JSON.stringify({ cardId });
+  console.log('Request body:', requestBody);
+
+
   const res = await fetch(`${cardsUrl}set-favorites/${cardId}`, {
-      method: 'POST',
+
+    method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        
           'x-auth-token': getToken(),
+          
+          
       },
-      body: JSON.stringify({ cardId }),
-  });
+      body: requestBody,
+    });
+
+  
+  console.log('Response:', res);
   return res.json();
 }
 export async function getFavorites(): Promise<Array<any>> {
-  const res = await fetch(`${cardsUrl}favs`, {
+  try {
+    const res = await fetch(`${usersUrl}favs`, {
       method: 'GET',
       headers: {
-          'x-auth-token': getToken(),
+        'x-auth-token': getToken(),
       },
-      
-  });
-  return res.json();
+    });
+    console.log('Response from getFavorites:', res);
+    return res.json();
+  } catch (error) {
+    console.error('Error in getFavorites:', error);
+    throw error;
+  }
+
 }

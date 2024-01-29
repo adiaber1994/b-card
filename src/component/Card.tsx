@@ -4,12 +4,12 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { deleteCard, favorite, editCard, getCards, getFavorites } from "../services/ApiService";
+import { deleteCard, favorite, editCard, getCards} from "../services/ApiService";
 import { CardProps } from "../interface/InterCard"
 import { toast } from "react-toastify";
 import { UserContext } from "../context/userContext";
-import { verifyToken } from "../auth/TokenManager";
-import { AppContext } from "../App";
+import { getToken, verifyToken } from "../auth/TokenManager";
+
 
 
 
@@ -25,45 +25,53 @@ function Card({ card }: { card:CardProps  }){
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const {userData, favorites, setFavorites} = useContext(UserContext)
   const [isFavorite, setIsFavorite] = useState(false)
+  const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
 
-  useEffect(() => {
-    // Check if the current card is in the user's favorites
-    if (Array.isArray (favorites)) {
-      setIsFavorite(favorites.findIndex((cardItem) => cardItem._id === card._id) !== -1);
-    }
-  }, [card, favorites]);
 
   const handleFavoriteClick = async (_id: string) => {
+    setIsFavoriteLoading(true);
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     try {
       const result = await favorite(_id).then((data) => {
-        const updatedIsFavorite = !isFavorite
+        const updatedIsFavorite = !isFavorite;
+
+
         setIsFavorite(updatedIsFavorite);
-        if (updatedIsFavorite) {
+
+        if (Array.isArray(favorites)) {
+          
+        
+          if (updatedIsFavorite) {
           setFavorites([...favorites, card]);
+          console.log('Favorites after setFavorites:', favorites);
         } else {
           setFavorites(favorites.filter((cardItem) => cardItem._id !== card._id));
+          
         }
-        updatedIsFavorite
-        ? toast.success(`${card.title} added to favorites successfully!`)
-        : toast.success(`${card.title} removed from favorites`)
 
-    //     toast.success(`${card.title} ${updatedIsFavorite ? "added to" : "removed from"} favorites successfully!`);
-    // } catch (error) {
-    //   console.error("Error toggling favorite:", error);
-    //   toast.error("Failed to update favorites on the server");
-    // }
+      }
+      if(updatedIsFavorite)
+      toast.success(`${card.title} added to favorites successfully!`)
+    else toast.success(`${card.title} removed from favorites`)
+
+    
      });
 
-    //   await favorite(_id);
 
-
-    //   toast.success(`${card.title} ${updatedIsFavorite ? "added to" : "removed from"} favorites successfully!`);
     } catch (error) {
       console.error("Error toggling favorite:", error);
       toast.error("Failed to update favorites on the server");
     }
   }
+
+  useEffect(() => {
+    // Check if the current card is in the user's favorites
+    setIsFavorite(Array.isArray(favorites) && favorites.some((cardItem) => cardItem._id === card._id));
+  }, [card, favorites]);
+
+
+
+  
   
 
 
@@ -142,7 +150,7 @@ function Card({ card }: { card:CardProps  }){
   
              
         </CardContent>
-        {verifyToken() && (
+        {userData && (
         <Typography>
         phone:  {card.phone} <br />
             email:  {card.email} <br />
@@ -152,20 +160,23 @@ function Card({ card }: { card:CardProps  }){
        </Typography>  )}
       </CardActionArea>
       <CardActions>
-
-      {/* <span className={`bi bi-heart${isFavorite ? '-fill' : ''}`} onClick={() => handleFavoriteClick(card._id as string)}></span> */}
-           <Checkbox icon={<FavoriteBorder  />} checkedIcon={<Favorite   />} onClick={() =>
+      {userData && (
+    
+           <Checkbox
+            icon={<FavoriteBorder  />}
+            checkedIcon={<Favorite   />} onClick={() =>
                         handleFavoriteClick(card._id as string)
-                      }   />
+                      }   /> )}
+      
 
-           {verifyToken() && (
+           {userData?.isAdmin &&  (
            
            <IconButton aria-label="delete" color="primary">
            <DeleteIcon onClick={()=> onDelete(card._id as string)} />
             </IconButton>
             )}
             
-           {verifyToken() && (
+           {userData?.isAdmin && (
 
            <Link to={`/edit/${card._id}`}>
            <IconButton aria-label="edit" color="primary"  >

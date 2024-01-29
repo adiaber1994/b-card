@@ -1,14 +1,14 @@
 import { useContext, useMemo, useState } from "react";
 import { NavLink } from "react-router-dom";
 import Logout from "../auth/Logout";
-import { verifyToken } from "../auth/TokenManager";
-import { AppContext } from "../App";
+import { removeUser, verifyToken } from "../auth/TokenManager";
 import { AppBar, Box, Button, Container, IconButton, Menu, MenuItem, Toolbar, Tooltip, Typography } from "@mui/material";
 import Diversity1Icon from '@mui/icons-material/Diversity1';
 import React from "react";
 import MenuIcon from '@mui/icons-material/Menu'
 
 import Brightness6Icon from '@mui/icons-material/Brightness6';
+import { UserContext } from "../context/userContext";
 
 
 interface HeaderProps {
@@ -16,19 +16,13 @@ interface HeaderProps {
   mode: 'light' | 'dark';
 }
 
-const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
-
-  const context = useContext(AppContext);
-
- 
-    const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
+function Header( {onClick, mode}: HeaderProps ): JSX.Element{
+  const { userData} = useContext(UserContext);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
    
-  
-    const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
+   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
       setAnchorElNav(event.currentTarget);
     };
-   
-  
     const handleCloseNavMenu = () => {
       setAnchorElNav(null);
     };
@@ -106,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
               </NavLink>
             </li>
 
-            {verifyToken() && (
+            {userData &&(
 
             < li className="nav-item">
                 <NavLink
@@ -116,9 +110,10 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
               >
                 MY CARDS
               </NavLink>
-            </li>)}
+            </li>
+            )}
 
-            {context?.admin &&
+            {userData?.isAdmin &&(
 
               < li className="nav-item">
                  <NavLink
@@ -128,28 +123,36 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
                                     >
                              ADD CARD
                           </NavLink>
-                      </li>}
-                      <li className="nav-item">
-                <NavLink to="/Signup" className="nav-link">
+                      </li>
+                      
+            )}
+
+          {!userData && (
+
+
+            <li className="nav-item">
+              <NavLink to="/Signup" className="nav-link">
                  SIGN UP
-                </NavLink>
-                </li>
+               </NavLink>
+               </li>
+               
+            )}
             
-           {!verifyToken() &&
+           {!userData && (
             <li className="nav-item">
               <NavLink to="/login" className="nav-link">
                LOGIN
               </NavLink>
             </li>
-            }
+            )}
 
-            {verifyToken() &&
-
+           {userData && (
             <li className="nav-item">
-            
               <Logout/>
-            </li>
-             }
+              </li>
+            )}
+
+            
                    
 
             </Menu>
@@ -183,7 +186,7 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
                 ABOUT
               </NavLink>
             </ul>
-            {verifyToken() && (
+            {userData &&(
               <ul className="nav-item">
               <NavLink to="/my cards" className="nav-link">
                 MY CARDS
@@ -191,20 +194,21 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
             </ul>
             )}
           
-          {context?.admin &&
+          {userData?.isAdmin &&(
             <ul className="nav-item">
               <NavLink to="/add" className="nav-link">
                 ADD CARD
               </NavLink>
             </ul>
-          }
-           {context?.admin &&
+          )}
+           {userData?.isAdmin &&(
             <ul className="nav-item">
               <NavLink to="/sandBox" className="nav-link">
                 SANDBOX
               </NavLink>
             </ul>
-            }
+           )}
+            
             </Box>
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, mt: 2 }}>
                 <ul className="nav-item">
@@ -218,28 +222,28 @@ const Header: React.FC<HeaderProps> = ({ onClick, mode }) => {
                 </Typography>
               </IconButton>
               </ul>
-                 
+              {!userData && (
                 <ul className="nav-item">
                 <NavLink to="/Signup" className="nav-link">
                  SIGN UP
                 </NavLink>
                 </ul>
+              )}
             
-           {!verifyToken() &&
+            {!userData && (
             <ul className="nav-item">
               <NavLink to="/login" className="nav-link">
                LOGIN
               </NavLink>
             </ul>
-            }
+            )}
 
-            {verifyToken() &&
+            {userData && (
 
-            <ul className="nav-item">
-            
-              <Logout/>
-            </ul>
-             }
+                <ul className="nav-item">
+                <Logout/>
+                 </ul>
+             )}
 
         </Box>
             </Toolbar>

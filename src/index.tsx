@@ -9,16 +9,18 @@ import "react-toastify/dist/ReactToastify.min.css";
 import { BrowserRouter } from "react-router-dom";
 import { UserProvider } from "./context/userContext";
 
+
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-   
+    <UserProvider>
       <App />
-      
-    </BrowserRouter>
+    </UserProvider>
+  </BrowserRouter>,
   </React.StrictMode>
 );
 

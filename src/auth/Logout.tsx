@@ -1,14 +1,15 @@
 import { useNavigate } from "react-router-dom";
-import { removeToken } from "./TokenManager";
+import { removeToken, removeUser } from "./TokenManager";
 
 function Logout() {
   const navigate = useNavigate();
 
   function handleClick() {
-    removeToken();
+    removeUser();
     
-    navigate("/login");
   }
+
+  
 
   return (
     <button className="nav-link" onClick={handleClick}>

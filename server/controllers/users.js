@@ -25,7 +25,7 @@ module.exports = {
       const validPassword = await bcrypt.compare(value.password, user.password);
       if (!validPassword) throw "Invalid password";
 
-      const param = { email: value.email };
+      const param = { userId: user._id, email: value.email };
       const token = jwt.sign(param, config.jwt_token, { expiresIn: "72800s" });
 
       res.json({
@@ -48,6 +48,8 @@ module.exports = {
       lastName: joi.string().required().min(2).max(256),
       email: joi.string().min(4).max(255).required().email(),
       password: joi.string().min(8).max(256).required(),
+      isAdmin: joi.boolean().optional().allow(''),
+      
     });
 
     const { error, value } = schema.validate(req.body);
@@ -87,4 +89,32 @@ module.exports = {
       res.status(400).json({ error: "error sign up new user" });
     }
   },
+
+  // favorite: async (req, res) => {
+  //   const { cardId} = req.params;
+  //   const userId = req.user._id;
+  //   try {
+  //       const user = await User.findById(userId);
+  //       let type;
+  //       const index = (user.favorites || []).indexOf(businessId);
+  //       if (index > -1) {
+  //           user.favorites.splice(index, 1);
+  //           type = 'Removed from';
+  //       } else {
+  //           user.favorites.push(businessId);
+  //           type = 'Added to';
+  //       }
+  //       await user.save();
+
+  //       res.status(200).send({ success: true, type });
+  //   } catch (err) {
+  //       console.log(err);
+  //       res.status(401).send(err.message);
+  //   }
+// },
+
+
+
+
+
 };

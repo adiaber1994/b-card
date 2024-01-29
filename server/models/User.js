@@ -24,21 +24,36 @@ const userSchema = new mongoose.Schema({
   },
   password: {
     type: String,
-    required: true,
+    require: true,
     minlength: 8,
     maxlength: 1024,
   },
+
+  user_id:{
+    type:String
+},
   
   isAdmin: {
     type: Boolean,
+    require: false,
     default: false,
    
   },
-  favorites:
-[{
-  type:mongoose.Schema.Types.ObjectId,
-  ref: "Card"}] 
+  cards:[{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+
+    createdAt: { type: Date, default: Date.now },
+   
+    favorites: [{type: mongoose.Schema.Types.ObjectId,
+        ref: "Card"}]
 });
+
+// userSchema.methods.generateAuthToken = function () {
+//   const token = jwt.sign(
+//       { _id: this._id, isAdmin: this.isAdmin },
+//       config.get('jwtKey')
+//   );
+//   return token;
+// };
 
 const User = mongoose.model("user", userSchema);
 
