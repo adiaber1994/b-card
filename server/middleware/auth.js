@@ -6,9 +6,11 @@ module.exports = (req, res, next) => {
   if (!token) return res.status(401).send("Access denied. go to /signin");
   try {
     req.user = jwt.decode(token);
+    console.log("auth console:");
+    console.log(req.user);
     next();
   } catch (err) {
     console.log(err);
-    next(err)
+    next(err);
   }
 };

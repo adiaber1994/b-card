@@ -13,7 +13,7 @@ const cardSchema = new mongoose.Schema({
 
   description: {
     type: String,
-    required:  true,
+    required: true,
   },
   imageUrl: {
     type: String,
@@ -55,16 +55,14 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    favorites: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'User',
-        },
-    ],
-
-  });
-
+  user_id: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
+  favorites: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
+});
 
 const Card = mongoose.model("card", cardSchema);
 

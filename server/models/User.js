@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     minlength: 2,
     maxlength: 256,
   },
- 
+
   email: {
     type: String,
     require: true,
@@ -29,22 +29,20 @@ const userSchema = new mongoose.Schema({
     maxlength: 1024,
   },
 
-  user_id:{
-    type:String
-},
-  
+  user_id: {
+    type: String,
+  },
+
   isAdmin: {
     type: Boolean,
     require: false,
     default: false,
-   
   },
-  cards:[{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
+  // cards: [{ type: mongoose.Schema.Types.ObjectId, ref: "Card" }],
 
-    createdAt: { type: Date, default: Date.now },
-   
-    favorites: [{type: mongoose.Schema.Types.ObjectId,
-        ref: "Card"}]
+  createdAt: { type: Date, default: Date.now },
+
+  favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: "card" }],
 });
 
 // userSchema.methods.generateAuthToken = function () {

@@ -20,7 +20,7 @@ module.exports = {
     }
 
     try {
-      const user = await User.findOne({ email: value.email })
+      const user = await User.findOne({ email: value.email });
       if (!user) throw Error;
       const validPassword = await bcrypt.compare(value.password, user.password);
       if (!validPassword) throw "Invalid password";
@@ -34,7 +34,7 @@ module.exports = {
         email: user.email,
         firstName: user.firstName,
         isAdmin: user.isAdmin,
-        favorites: user.favorites
+        favorites: user.favorites,
       });
     } catch (err) {
       console.log(err);
@@ -48,8 +48,7 @@ module.exports = {
       lastName: joi.string().required().min(2).max(256),
       email: joi.string().min(4).max(255).required().email(),
       password: joi.string().min(8).max(256).required(),
-      isAdmin: joi.boolean().optional().allow(''),
-      
+      isAdmin: joi.boolean().optional().allow(""),
     });
 
     const { error, value } = schema.validate(req.body);
@@ -82,7 +81,6 @@ module.exports = {
         lastName: newUser.lastName,
         email: newUser.email,
         password: hash,
-        
       });
     } catch (err) {
       console.log(err.message);
@@ -92,7 +90,7 @@ module.exports = {
 
   // favorite: async (req, res) => {
   //   const { cardId} = req.params;
-  //   const userId = req.user._id;
+  //   const userId = req.user.userId;
   //   try {
   //       const user = await User.findById(userId);
   //       let type;
@@ -111,10 +109,5 @@ module.exports = {
   //       console.log(err);
   //       res.status(401).send(err.message);
   //   }
-// },
-
-
-
-
-
+  // },
 };
