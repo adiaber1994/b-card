@@ -1,8 +1,6 @@
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import {
-  Box,
   Button,
-  ButtonGroup,
   CardActionArea,
   CardActions,
   CardContent,
@@ -13,21 +11,19 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  deleteCard,
-  favorite,
-  editCard,
-  getCards,
-} from "../services/ApiService";
+import { favorite } from "../services/ApiService";
 import { CardProps } from "../interface/InterCard";
-import {  ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { UserContext } from "../context/userContext";
-import { getToken, verifyToken } from "../auth/TokenManager";
 
-function Card({ card }: { card: CardProps }) {
+type onDelete = {
+  onDelete: Function;
+};
+
+function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const { userData, favorites, setFavorites } = useContext(UserContext);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -37,7 +33,7 @@ function Card({ card }: { card: CardProps }) {
     // setIsFavoriteLoading(true);
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     try {
-      const result = await favorite(_id).then((data) => {
+      await favorite(_id).then((data) => {
         const updatedIsFavorite = !isFavorite;
 
         setIsFavorite(updatedIsFavorite);
@@ -53,7 +49,6 @@ function Card({ card }: { card: CardProps }) {
           }
         }
         if (updatedIsFavorite)
-        
           toast.success(`${card.title} added to favorites successfully!`);
         else toast.success(`${card.title} removed from favorites`);
       });
@@ -71,26 +66,6 @@ function Card({ card }: { card: CardProps }) {
       }
     });
   }, [card, favorites]);
-
-
-
-  async function onDelete(_id: string) {
-    try {
-      
-      await deleteCard(_id);
-  
-      
-      setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
-      console.log( _id)
-      console.log()
-  
-      
-      toast.success(`Card ${_id} deleted successfully!`);
-    } catch (error) {
-      console.error("Error deleting card:", error);
-      toast.error("Failed to delete card");
-    }
-  }
 
   return (
     <div className="cardBody">
@@ -126,7 +101,11 @@ function Card({ card }: { card: CardProps }) {
         )}
 
         {userData?.isAdmin && (
-          <IconButton aria-label="delete" color="primary" onClick={() => onDelete(card._id as string)}>
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={() => onDelete(card._id as string)}
+          >
             <DeleteIcon />
           </IconButton>
         )}

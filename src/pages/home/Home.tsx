@@ -61,6 +61,19 @@ function Home() {
     setCards(result);
   }
 
+  async function onDelete(_id: string) {
+    try {
+      await deleteCard(_id);
+
+      setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
+
+      toast.success(`Card ${_id} deleted successfully!`);
+    } catch (error) {
+      console.error("Error deleting card:", error);
+      toast.error("Failed to delete card");
+    }
+  }
+
   return (
     <>
       <div className="home">
@@ -85,8 +98,8 @@ function Home() {
             {cards.length === 0 && <div>No Cards</div>}
             <div className="cards">
               {cards.map((card) => (
-                <div className="card">
-                  <Card key={card._id} card={card} {...card} />
+                <div className="card" key={card._id}>
+                  <Card card={card} onDelete={onDelete} {...card} />
                 </div>
               ))}
             </div>
