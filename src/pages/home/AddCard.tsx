@@ -31,9 +31,48 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
       setError("title is required");
       return false;
     }
+    if (!subTitleProps) {
+      setError("subtitle is required");
+      return false;
+    }
+    if (!decriptionProps) {
+      setError("description is required");
+      return false;
+    }
+    if (!phoneProps) {
+      setError("phone is required");
+      return false;
+    }
+    if (!emailProps) {
+      setError("email is required");
+      return false;
+    }
+    if (!imageUrlProps) {
+      setError("imageUrl is required");
+      return false;
+    }
+    if (!imageAltProps) {
+      setError("imageAlt is required");
+      return false;
+    }
+    if (!countryProps) {
+      setError("country is required");
+      return false;
+    }
+    if (!cityProps) {
+      setError("city is required");
+      return false;
+    }
+    if (!streetProps) {
+      setError("street is required");
+      return false;
+    }
+    if (!houseNumberProps) {
+      setError("house number is required");
+      return false;
+    }
  
 
-    setError("");
     return true;
   }
 
@@ -104,6 +143,8 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
          className="form-control"
          placeholder="Title"
          {...titleProps}
+         
+         
         />
 
         </Grid>
@@ -158,7 +199,6 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
               </Grid>
               <Grid item xs={12} sm={6}>
                 <TextField
-                  required
                   fullWidth
                   name="web"
                   label="web"
@@ -244,13 +284,15 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
                   required
                   fullWidth
                   name="Housenumber"
-                  label="Housenumber"
+                  label="House number"
                   type="text"
                   id="Housenumber"
                   autoComplete="Housenumber"
                   {...houseNumberProps}
                 />
               </Grid>
+
+              <div className="text-danger">{error}</div>
 
             </Grid>
 

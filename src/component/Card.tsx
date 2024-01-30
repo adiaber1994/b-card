@@ -22,7 +22,7 @@ import {
   getCards,
 } from "../services/ApiService";
 import { CardProps } from "../interface/InterCard";
-import { toast } from "react-toastify";
+import {  ToastContainer, toast } from "react-toastify";
 
 import { UserContext } from "../context/userContext";
 import { getToken, verifyToken } from "../auth/TokenManager";
@@ -72,12 +72,24 @@ function Card({ card }: { card: CardProps }) {
     });
   }, [card, favorites]);
 
+
+
   async function onDelete(_id: string) {
-    const res = await deleteCard(_id);
-
-    const updated = [...cards].filter((cards) => cards._id !== _id);
-
-    setCards(updated);
+    try {
+      
+      await deleteCard(_id);
+  
+      
+      setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
+      console.log( _id)
+      console.log()
+  
+      
+      toast.success(`Card ${_id} deleted successfully!`);
+    } catch (error) {
+      console.error("Error deleting card:", error);
+      toast.error("Failed to delete card");
+    }
   }
 
   return (
@@ -114,8 +126,8 @@ function Card({ card }: { card: CardProps }) {
         )}
 
         {userData?.isAdmin && (
-          <IconButton aria-label="delete" color="primary">
-            <DeleteIcon onClick={() => onDelete(card._id as string)} />
+          <IconButton aria-label="delete" color="primary" onClick={() => onDelete(card._id as string)}>
+            <DeleteIcon />
           </IconButton>
         )}
 

@@ -60,6 +60,10 @@ function Login() {
 
     });
   }
+  const handleRefresh = () => {
+    setEmail("");
+    setPassword("");
+  };
 
     
   
@@ -122,15 +126,18 @@ function Login() {
             <Grid container spacing={1}>
             <Grid item xs>
               <Button
+               href="/"
                 variant="outlined"
                 color="error"
                 sx={{ mt: 3, mb: 2, mr: 5 }}
               >
                 CANCEL
+              
               </Button>
             </Grid>
             <Grid item xs>
               <Button
+              onClick={handleRefresh}
                 variant="outlined"
                 color="error"
                 sx={{ mt: 3, mb: 2 }}

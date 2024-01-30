@@ -17,7 +17,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import EditCard from "./pages/home/EditCard";
 import ViewCard from "./pages/home/ViewCard";
 import Footer from "./component/Footer";
-import MyCards from "./pages/MyCards";
+import MyCards from "./pages/myCards/MyCards";
 import { UserContext } from "./context/userContext";
 import { CardProps } from "./interface/InterCard";
 import { User } from "./interface/InterUser";
