@@ -23,6 +23,7 @@ import {
 } from "../services/ApiService";
 import { CardProps } from "../interface/InterCard";
 import { toast } from "react-toastify";
+
 import { UserContext } from "../context/userContext";
 import { getToken, verifyToken } from "../auth/TokenManager";
 
@@ -52,6 +53,7 @@ function Card({ card }: { card: CardProps }) {
           }
         }
         if (updatedIsFavorite)
+        
           toast.success(`${card.title} added to favorites successfully!`);
         else toast.success(`${card.title} removed from favorites`);
       });

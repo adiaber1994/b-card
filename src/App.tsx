@@ -5,7 +5,8 @@ import { Route, Routes } from "react-router-dom";
 import Home from "./pages/home/Home";
 import About from "./pages/About";
 import Signup from "./auth/SignUp";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import Login from "./auth/login";
 import RouteGuard from "./auth/RouteGuard";
 import SandBox from "./pages/SandBox";
@@ -27,12 +28,6 @@ import {AuthRoute} from "./auth/AuthRoute"
 
 
 
-interface Context {
- 
-  admin: Boolean;
-  setAdmin: Function;
- 
-}
 
 
 function App() {
@@ -41,26 +36,6 @@ function App() {
   const [userName, setUserName] = useState('');
   const[userData,setUserData] = useState<User| undefined>()
   const [favorites, setFavorites] = useState<CardProps[]>([]);
-
-  // useEffect(() => {
-  //   const storedToken = getToken();
-  //   if (storedToken) {
-      // Fetch user information using the stored token
-      // Update your context based on the fetched user data
-      // const fetchData = async () => {
-      //   try {
-      //     const userData = await fetchUserData(); // Assuming you have implemented this function
-      //     setUserData(userData);
-      //   } catch (error) {
-      //     console.error('Error during login or fetching user data:', error);
-          // Handle error if necessary
-        // }
-      // };
-  
-  //     fetchData();
-  //   }
-  // }, []);
-
 
   const theme = createTheme({
     palette: {
