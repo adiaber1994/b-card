@@ -1,8 +1,6 @@
 import { Favorite, FavoriteBorder } from "@mui/icons-material";
 import {
-  Box,
   Button,
-  ButtonGroup,
   CardActionArea,
   CardActions,
   CardContent,
@@ -13,21 +11,18 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  deleteCard,
-  favorite,
-  editCard,
-  getCards,
-} from "../services/ApiService";
+import { favorite } from "../services/ApiService";
 import { CardProps } from "../interface/InterCard";
-import {  ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 import { UserContext } from "../context/userContext";
-import { getToken, verifyToken } from "../auth/TokenManager";
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
 type onDelete = {
   onDelete: Function;
 };
@@ -42,7 +37,7 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
     // setIsFavoriteLoading(true);
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     try {
-      const result = await favorite(_id).then((data) => {
+      await favorite(_id).then((data) => {
         const updatedIsFavorite = !isFavorite;
 
         setIsFavorite(updatedIsFavorite);
@@ -58,7 +53,6 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
           }
         }
         if (updatedIsFavorite)
-        
           toast.success(`${card.title} added to favorites successfully!`);
         else toast.success(`${card.title} removed from favorites`);
       });
@@ -77,6 +71,7 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
     });
   }, [card, favorites]);
 
+<<<<<<< HEAD
 
 
   // async function onDelete(_id: string) {
@@ -97,6 +92,8 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
   //   }
   // }
 
+=======
+>>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
   return (
     <div className="cardBody">
       <CardActionArea>
@@ -131,8 +128,17 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
         )}
 
         {userData?.isAdmin && (
+<<<<<<< HEAD
           <IconButton aria-label="delete" color="primary"  onClick={() => onDelete(card._id as string)} >
             <DeleteIcon  />
+=======
+          <IconButton
+            aria-label="delete"
+            color="primary"
+            onClick={() => onDelete(card._id as string)}
+          >
+            <DeleteIcon />
+>>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
           </IconButton>
         )}
 

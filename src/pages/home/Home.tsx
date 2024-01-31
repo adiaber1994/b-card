@@ -99,7 +99,11 @@ function Home() {
             <div className="cards">
               {cards.map((card) => (
                 <div className="card" key={card._id}>
+<<<<<<< HEAD
                   <Card key={card._id} onDelete={onDelete} card={card} {...card} />
+=======
+                  <Card card={card} onDelete={onDelete} {...card} />
+>>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
                 </div>
               ))}
             </div>
