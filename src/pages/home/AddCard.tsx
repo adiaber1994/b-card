@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { addCard } from "../../services/ApiService";
 import { useInputText } from "../../hooks/useInputText";
 import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/material";
+import { toast } from "react-toastify";
 
 
 
@@ -23,51 +24,56 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
   const cityProps = useInputText('');
   const streetProps = useInputText('');
   const houseNumberProps = useInputText('');
-  const [error, setError] = useState("");
+  
+
+  function setError(errorMessage: string) {
+    toast.error(errorMessage);
+  }
   
 
   function validate(): boolean {
-    if (!titleProps) {
-      setError("title is required");
+    if (!titleProps.value) {
+      toast.error("Title is required.");
       return false;
     }
-    if (!subTitleProps) {
+    if (!subTitleProps.value) {
       setError("subtitle is required");
       return false;
     }
-    if (!decriptionProps) {
+    if (!decriptionProps.value) {
       setError("description is required");
       return false;
     }
-    if (!phoneProps) {
+    if (!phoneProps.value) {
       setError("phone is required");
       return false;
     }
-    if (!emailProps) {
-      setError("email is required");
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailProps.value || !emailRegex.test(emailProps.value)) {
+      setError("Email is required and must be valid.");
       return false;
     }
-    if (!imageUrlProps) {
+    if (!imageUrlProps.value) {
       setError("imageUrl is required");
       return false;
     }
-    if (!imageAltProps) {
+    if (!imageAltProps.value) {
       setError("imageAlt is required");
       return false;
     }
-    if (!countryProps) {
+    if (!countryProps.value) {
       setError("country is required");
       return false;
     }
-    if (!cityProps) {
+    if (!cityProps.value) {
       setError("city is required");
       return false;
     }
-    if (!streetProps) {
+    if (!streetProps.value) {
       setError("street is required");
       return false;
     }
-    if (!houseNumberProps) {
+    if (!houseNumberProps.value) {
       setError("house number is required");
       return false;
     }
@@ -292,7 +298,7 @@ import { Box, Button, Container, CssBaseline, Grid, TextField } from "@mui/mater
                 />
               </Grid>
 
-              <div className="text-danger">{error}</div>
+              
 
             </Grid>
 

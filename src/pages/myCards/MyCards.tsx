@@ -1,11 +1,13 @@
 import React, { ChangeEvent, useContext, useEffect, useState } from "react";
-import { getFavorites } from "../../services/ApiService";
+import { getFavorites, deleteCard } from "../../services/ApiService";
 import { UserContext } from "../../context/userContext";
 import Card from "../../component/Card";
 import { Container } from "@mui/material";
 import Title from "../../component/Title";
 import "./MyCards.css";
 import { CardProps } from "../../interface/InterCard";
+import { toast } from "react-toastify";
+
 
 
 
@@ -45,6 +47,23 @@ function MyCards() {
     setFavorites(result);
   }
 
+  async function onDelete(_id: string) {
+    try {
+      // מחיקת הכרטיס מהשרת
+      await deleteCard(_id);
+      console.log(`Card ${_id} deleted successfully!`);
+  
+      // קבלת הפיווריטים מהשרת לאחר המחיקה
+      const updatedFavorites = await getFavorites();
+      console.log("Updated favorites:", updatedFavorites);
+  
+      // עדכון הפיווריטים בסטייט
+      setFavorites(updatedFavorites);
+    } catch (error) {
+      console.error("Error deleting card:", error);
+      toast.error("Failed to delete card");
+    }
+  }
   return (
     <>
       <div className="myCards">
@@ -70,8 +89,8 @@ function MyCards() {
         <div className="cards">
           {favorites &&
             favorites.map((favorite) => (
-              <div className="card">
-                <Card key={favorite._id} card={favorite} {...favorite} />
+              <div className="card" key={favorite._id}>
+                <Card key={favorite._id}  onDelete={onDelete} card={favorite} {...favorite} />
               </div>
             ))}
         </div>

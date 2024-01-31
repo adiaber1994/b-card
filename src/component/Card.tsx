@@ -27,7 +27,12 @@ import {  ToastContainer, toast } from "react-toastify";
 import { UserContext } from "../context/userContext";
 import { getToken, verifyToken } from "../auth/TokenManager";
 
-function Card({ card }: { card: CardProps }) {
+
+type onDelete = {
+  onDelete: Function;
+};
+
+function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const { userData, favorites, setFavorites } = useContext(UserContext);
   const [isFavorite, setIsFavorite] = useState(false);
@@ -74,23 +79,23 @@ function Card({ card }: { card: CardProps }) {
 
 
 
-  async function onDelete(_id: string) {
-    try {
+  // async function onDelete(_id: string) {
+  //   try {
       
-      await deleteCard(_id);
+  //     await deleteCard(_id);
   
       
-      setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
-      console.log( _id)
-      console.log()
+  //     setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
+  //     console.log( )
+  //     console.log()
   
       
-      toast.success(`Card ${_id} deleted successfully!`);
-    } catch (error) {
-      console.error("Error deleting card:", error);
-      toast.error("Failed to delete card");
-    }
-  }
+  //     toast.success(`Card ${_id} deleted successfully!`);
+  //   } catch (error) {
+  //     console.error("Error deleting card:", error);
+  //     toast.error("Failed to delete card");
+  //   }
+  // }
 
   return (
     <div className="cardBody">
@@ -126,8 +131,8 @@ function Card({ card }: { card: CardProps }) {
         )}
 
         {userData?.isAdmin && (
-          <IconButton aria-label="delete" color="primary" onClick={() => onDelete(card._id as string)}>
-            <DeleteIcon />
+          <IconButton aria-label="delete" color="primary"  onClick={() => onDelete(card._id as string)} >
+            <DeleteIcon  />
           </IconButton>
         )}
 

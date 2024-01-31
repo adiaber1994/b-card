@@ -9,7 +9,6 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Login from "./auth/login";
 import RouteGuard from "./auth/RouteGuard";
-import SandBox from "./pages/SandBox";
 import AdminGuard from "./auth/AdminGuard";
 import AddCard from "./pages/home/AddCard";
 import { ThemeProvider, createTheme } from '@mui/material/styles';
@@ -93,7 +92,6 @@ function handleClick() {
         <Route
           path="my cards" element={ <MyCards />}
         />
-        <Route path="sandBox" element={<AdminGuard><SandBox /></AdminGuard>}/>
         <Route path="Signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         
