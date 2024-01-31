@@ -49,15 +49,15 @@ function MyCards() {
 
   async function onDelete(_id: string) {
     try {
-      // מחיקת הכרטיס מהשרת
+      
       await deleteCard(_id);
       console.log(`Card ${_id} deleted successfully!`);
   
-      // קבלת הפיווריטים מהשרת לאחר המחיקה
+     
       const updatedFavorites = await getFavorites();
       console.log("Updated favorites:", updatedFavorites);
   
-      // עדכון הפיווריטים בסטייט
+      
       setFavorites(updatedFavorites);
     } catch (error) {
       console.error("Error deleting card:", error);
