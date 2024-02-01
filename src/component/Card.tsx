@@ -19,10 +19,6 @@ import { toast } from "react-toastify";
 
 import { UserContext } from "../context/userContext";
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
 type onDelete = {
   onDelete: Function;
 };
@@ -71,29 +67,6 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
     });
   }, [card, favorites]);
 
-<<<<<<< HEAD
-
-
-  // async function onDelete(_id: string) {
-  //   try {
-      
-  //     await deleteCard(_id);
-  
-      
-  //     setCards((prevCards) => prevCards.filter((card) => card._id !== _id));
-  //     console.log( )
-  //     console.log()
-  
-      
-  //     toast.success(`Card ${_id} deleted successfully!`);
-  //   } catch (error) {
-  //     console.error("Error deleting card:", error);
-  //     toast.error("Failed to delete card");
-  //   }
-  // }
-
-=======
->>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
   return (
     <div className="cardBody">
       <CardActionArea>
@@ -128,17 +101,12 @@ function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
         )}
 
         {userData?.isAdmin && (
-<<<<<<< HEAD
-          <IconButton aria-label="delete" color="primary"  onClick={() => onDelete(card._id as string)} >
-            <DeleteIcon  />
-=======
           <IconButton
             aria-label="delete"
             color="primary"
             onClick={() => onDelete(card._id as string)}
           >
             <DeleteIcon />
->>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
           </IconButton>
         )}
 

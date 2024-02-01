@@ -36,7 +36,6 @@ import { UserContext } from "../../context/userContext";
 
 function Home() {
   const [cards, setCards] = useState<Array<CardProps>>([]);
-  // const context = useContext(AppContext)
   const [search, setSearch] = useState("");
   const [origData, setOrigData] = useState<Array<CardProps>>([]);
   const { userData, favorites, setFavorites } = useContext(UserContext);
@@ -99,11 +98,7 @@ function Home() {
             <div className="cards">
               {cards.map((card) => (
                 <div className="card" key={card._id}>
-<<<<<<< HEAD
-                  <Card key={card._id} onDelete={onDelete} card={card} {...card} />
-=======
                   <Card card={card} onDelete={onDelete} {...card} />
->>>>>>> 0815495c6655f77807ffb60bd777588b3fa5b153
                 </div>
               ))}
             </div>

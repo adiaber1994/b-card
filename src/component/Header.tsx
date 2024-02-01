@@ -201,14 +201,6 @@ function Header( {onClick, mode}: HeaderProps ): JSX.Element{
               </NavLink>
             </ul>
           )}
-           {userData?.isAdmin &&(
-            <ul className="nav-item">
-              <NavLink to="/sandBox" className="nav-link">
-                SANDBOX
-              </NavLink>
-            </ul>
-           )}
-            
             </Box>
             <Box sx={{ flexGrow: 0, display: { xs: 'none', md: 'flex' }, mt: 2 }}>
                 <ul className="nav-item">
