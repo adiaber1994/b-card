@@ -71,6 +71,17 @@ export async function editCard(
   }
 }
 
+export async function getAllUsers (): Promise<Array<User>> {
+  const res = await fetch(`${usersUrl}users`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      "x-auth-token": getToken(),
+    },
+  });
+  return res.json();
+}
+
 export async function getUserById(_id: string): Promise<User> {
   const res = await fetch(`${usersUrl}me`, {
     headers: {
@@ -80,6 +91,16 @@ export async function getUserById(_id: string): Promise<User> {
   });
   console.log(res);
   console.log(res.status);
+  return res.json();
+}
+
+export async function deleteUser(_id: string): Promise<User> {
+  const res = await fetch(`${usersUrl}${_id}`, {
+    method: "DELETE",
+    headers: {
+      "x-auth-token": getToken(),
+    },
+  });
   return res.json();
 }
 

@@ -21,16 +21,16 @@ import { UserContext } from "../context/userContext";
 
 type onDelete = {
   onDelete: Function;
-};
+};      
 
 function Card({ card, onDelete }: { card: CardProps; onDelete: any }) {
   const [cards, setCards] = useState<Array<CardProps>>([]);
   const { userData, favorites, setFavorites } = useContext(UserContext);
   const [isFavorite, setIsFavorite] = useState(false);
-  // const [isFavoriteLoading, setIsFavoriteLoading] = useState(false);
+  
 
   const handleFavoriteClick = async (_id: string) => {
-    // setIsFavoriteLoading(true);
+    
     setIsFavorite((prevIsFavorite) => !prevIsFavorite);
     try {
       await favorite(_id).then((data) => {

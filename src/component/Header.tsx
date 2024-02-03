@@ -117,15 +117,28 @@ function Header( {onClick, mode}: HeaderProps ): JSX.Element{
 
               < li className="nav-item">
                  <NavLink
-                 to="/add"
+                 to="/admin area"
                   className="nav-link active"
                  aria-current="page"
                                     >
-                             ADD CARD
+                             Users Managment
                           </NavLink>
                       </li>
                       
             )}
+            {userData?.isAdmin &&(
+
+             < li className="nav-item">
+             <NavLink
+             to="/add"
+             className="nav-link active"
+              aria-current="page"
+                      >
+               ADD CARD
+            </NavLink>
+        </li>
+        
+)}
 
           {!userData && (
 
@@ -198,6 +211,14 @@ function Header( {onClick, mode}: HeaderProps ): JSX.Element{
             <ul className="nav-item">
               <NavLink to="/add" className="nav-link">
                 ADD CARD
+              </NavLink>
+            </ul>
+          )}
+
+           {userData?.isAdmin &&(
+            <ul className="nav-item">
+              <NavLink to="/admin Area" className="nav-link">
+                ADMIN AREA
               </NavLink>
             </ul>
           )}

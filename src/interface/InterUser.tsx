@@ -5,7 +5,7 @@ export interface User {
     lastName?: string;
     email: string;
     password: string;
-    isAdmin?: Boolean;
+    isAdmin?: boolean;
     token?: string;
     favorites?: string[];
     user?:any

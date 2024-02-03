@@ -88,26 +88,40 @@ module.exports = {
     }
   },
 
-  // favorite: async (req, res) => {
-  //   const { cardId} = req.params;
-  //   const userId = req.user.userId;
-  //   try {
-  //       const user = await User.findById(userId);
-  //       let type;
-  //       const index = (user.favorites || []).indexOf(businessId);
-  //       if (index > -1) {
-  //           user.favorites.splice(index, 1);
-  //           type = 'Removed from';
-  //       } else {
-  //           user.favorites.push(businessId);
-  //           type = 'Added to';
-  //       }
-  //       await user.save();
+  getAllUsers: async function (req, res, next) {
+    try {
+      const users = await User.find({ isAdmin: false }).sort({ title: 1 });
+      res.json(users);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ error: "error getting users" });
+    }
+  },
 
-  //       res.status(200).send({ success: true, type });
-  //   } catch (err) {
-  //       console.log(err);
-  //       res.status(401).send(err.message);
-  //   }
-  // },
+
+  deleteUser: async function (req, res, next) {
+    try {
+      const scheme = joi.object({
+        _id: joi.string().required(),
+      });
+
+      const { error, value } = scheme.validate({ _id: req.params.id });
+
+      if (error) {
+        console.log(error.details[0].message);
+        res.status(400).json({ error: "invalid data" });
+        return;
+      }
+
+      const deleted = await User.findOne({ _id: value._id });
+
+      await User.deleteOne(value).exec();
+      res.json(deleted);
+    } catch (err) {
+      console.log(err);
+      res.status(400).json({ error: "error delete User" });
+    }
+  },
+
+  
 };

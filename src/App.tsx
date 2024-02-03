@@ -23,6 +23,7 @@ import { User } from "./interface/InterUser";
 import { favorite, fetchUserData } from "./services/ApiService";
 import { getToken } from "./auth/TokenManager";
 import {AuthRoute} from "./auth/AuthRoute"
+import UsersManagment from "./pages/UsersManagement";
 
 
 
@@ -92,6 +93,7 @@ function handleClick() {
         <Route
           path="my cards" element={ <MyCards />}
         />
+         <Route path="admin area" element={<RouteGuard><UsersManagment/></RouteGuard>} />
         <Route path="Signup" element={<Signup />} />
         <Route path="login" element={<Login />} />
         
